@@ -6,7 +6,7 @@
 - Install the downloaded git
 - Install the downloaded composer
 - After successfully installing composer, clone this project using git bash by this command `git clone https://github.com/MakMoinee/sonogramWebApp.git `
-- Go to the clone repository directory by opening cmd > `cd sonogramWebApp`
+- Go to the clone repository directory and open cmd
 - Type in the cmd > `composer install`
 - If you encounter errors, please enable the php.ini by running this in cmd > `php --ini`
 - After that, open the php.ini file in the folder where your php is located.

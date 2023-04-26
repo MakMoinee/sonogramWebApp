@@ -17,6 +17,19 @@ class LocalMysqlRepository implements LocalMysql
     {
         try {
             $result = DB::table($tableName)->get();
+            $data = json_decode($result, true);
+            $listener->onSuccessUsers($data);
+        } catch (Exception $e) {
+            $listener->onError($e);
+        }
+    }
+
+    public function findAllWithWhere(string $tableName, string $whereColumn, string $whereOperator, string $whereValue, LocalMysqlListener $listener)
+    {
+        try {
+            $result = DB::table($tableName)->where($whereColumn, $whereOperator, $whereValue)->get();
+            $data = json_decode($result, true);
+            return $listener->onSuccessUsers($data);
         } catch (Exception $e) {
             $listener->onError($e);
         }

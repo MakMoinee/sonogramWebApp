@@ -31,7 +31,6 @@
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -85,13 +84,12 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto py-0">
-                <a href="/" class="nav-item nav-link active">Home</a>
+                <a href="/" class="nav-item nav-link">Home</a>
                 <a href="/about" class="nav-item nav-link">About</a>
-                <a href="/pricing" class="nav-item nav-link">Pricing</a>
+                <a href="/pricing" class="nav-item nav-link active">Pricing</a>
                 <a href="/contact" class="nav-item nav-link">Contact</a>
             </div>
-            <a href="#" class="btn btn-primary py-2 px-4 ms-3" data-bs-target="#signUpModal"
-                data-bs-toggle="modal">Signup</a>
+            <a href="#" class="btn btn-primary py-2 px-4 ms-3">Signup</a>
             <a href="#" class="btn btn-secondary py-2 px-4 ms-3" data-bs-target="#loginModal"
                 data-bs-toggle="modal">Login</a>
         </div>
@@ -100,85 +98,18 @@
 
 
 
-    <!-- Carousel Start -->
-    <div class="container-fluid p-0">
-        <div id="header-carousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img class="w-100" src="img/carousel-1.jpg" alt="Image">
-                    <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                        <div class="p-3" style="max-width: 900px;">
-                            <h5 class="text-white text-uppercase mb-3 animated slideInDown">Scan Your Dog's Sonogram
-                            </h5>
-                            <h1 class="display-1 text-white mb-md-4 animated zoomIn">Take The Best Result</h1>
-                            <a href="appointment.html"
-                                class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Signup</a>
-                            <a href="" class="btn btn-secondary py-md-3 px-md-5 animated slideInRight">Login</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <img class="w-100" src="img/carousel-2.jpg" alt="Image">
-                    <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                        <div class="p-3" style="max-width: 900px;">
-                            <h5 class="text-white text-uppercase mb-3 animated slideInDown">Scan Your Dog's Sonogram
-                            </h5>
-                            <h1 class="display-1 text-white mb-md-4 animated zoomIn">Keep A Copy Of Your Dog's Sonogram
-                                and Have A Historical Data</h1>
-                            <a href="#"
-                                class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Signup</a>
-                            <a href="#"
-                                class="btn btn-secondary py-md-3 px-md-5 animated slideInRight">Login</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#header-carousel"
-                data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#header-carousel"
-                data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-        </div>
-    </div>
-    <!-- Carousel End -->
-
-
-    <!-- About Start -->
-    <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
-        <div class="container">
-            <div class="row g-5">
-                <div class="col-lg-7">
-                    <div class="section-title mb-4">
-                        <h5 class="position-relative d-inline-block text-primary text-uppercase">About Us</h5>
-                        <h1 class="display-5 mb-0">PawScan - Your Trusted Sonogram Analysis Partner</h1>
-                    </div>
-                    <h4 class="text-body fst-italic mb-4">At PawScan, we are passionate about providing reliable and
-                        accurate sonogram scanning services for Shi Tzus. As a leading web application, we specialize in
-                        analyzing sonogram images uploaded by users to provide valuable insights into the health and
-                        condition of their furry companions' Shi Tzu.</h4>
-                    <div class="row g-3">
-                        <div class="col-sm-6 wow zoomIn" data-wow-delay="0.6s">
-                            <h5 class="mb-3"><i class="fa fa-check-circle text-primary me-3"></i>24/7 Opened</h5>
-                            <h5 class="mb-3"><i class="fa fa-check-circle text-primary me-3"></i>Fair Prices</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-5" style="min-height: 500px;">
-                    <div class="position-relative h-100">
-                        <img class="position-absolute w-100 h-100 rounded wow zoomIn" data-wow-delay="0.9s"
-                            src="img/about.jpg" style="object-fit: cover;">
-                    </div>
-                </div>
+    <!-- Hero Start -->
+    <div class="container-fluid bg-primary py-5 hero-header mb-5">
+        <div class="row py-3">
+            <div class="col-12 text-center">
+                <h1 class="display-3 text-white animated zoomIn">Pricing</h1>
+                <a href="" class="h4 text-white">Home</a>
+                <i class="far fa-circle text-white px-2"></i>
+                <a href="" class="h4 text-white">Pricing</a>
             </div>
         </div>
     </div>
-    <!-- About End -->
-
+    <!-- Hero End -->
 
     <!-- Pricing Start -->
     <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
@@ -190,11 +121,11 @@
                         <h1 class="display-5 mb-0">We Offer Fair Prices for Sonogram Analysis</h1>
                     </div>
                     {{-- <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum et tempor sit. Aliqu diam
-                        amet diam et eos labore. Clita erat ipsum et lorem et sit, sed stet no labore lorem sit. Sanctus
-                        clita duo justo eirmod magna dolore erat amet</p>
-                    <h5 class="text-uppercase text-primary wow fadeInUp" data-wow-delay="0.3s">Call for Appointment
-                    </h5>
-                    <h1 class="wow fadeInUp" data-wow-delay="0.6s">+012 345 6789</h1> --}}
+                    amet diam et eos labore. Clita erat ipsum et lorem et sit, sed stet no labore lorem sit. Sanctus
+                    clita duo justo eirmod magna dolore erat amet</p>
+                <h5 class="text-uppercase text-primary wow fadeInUp" data-wow-delay="0.3s">Call for Appointment
+                </h5>
+                <h1 class="wow fadeInUp" data-wow-delay="0.6s">+012 345 6789</h1> --}}
                 </div>
                 <div class="col-lg-7">
                     <div class="owl-carousel price-carousel wow zoomIn" data-wow-delay="0.9s">
@@ -359,77 +290,16 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
-    <div class="modal fade " id="signUpModal" tabindex="-1" role="dialog" aria-labelledby="signUpModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="signUpModalLabel">Signup</h5>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <form action="/signup" method="POST" enctype="multipart/form-data" autocomplete="off">
-                            @csrf
-                            <center>
-                                <div class="form-group">
-                                    <input required class="form-control" type="text" name="firstName"
-                                        id="fn" placeholder="First Name">
-                                </div>
-                                <br>
-                                <div class="form-group">
-                                    <input class="form-control" type="text" name="middleName" id="mn"
-                                        placeholder="Middle Name">
-                                </div>
-                                <br>
-                                <div class="form-group">
-                                    <input class="form-control" type="text" name="lastName" id="ln"
-                                        placeholder="Last Name">
-                                </div>
-                                <br>
-                                <div class="form-group">
-                                    <textarea required class="form-control" name="address" id="" cols="10" rows="3"
-                                        placeholder="Address"></textarea>
-                                </div>
-                                <br>
-                                <div class="form-group">
-                                    <label for="birthDate" class="for"
-                                        style="float:left;margin-bottom: 10px;">Birth Date</label>
-                                    <input required type="date" name="birthDate" id=""
-                                        class="form-control">
-                                </div>
-                                <br>
-                                <div class="form-group">
-                                    <input required type="number" name="phoneNumber" id=""
-                                        class="form-control" placeholder="Phone Number">
-                                </div>
-                                <br>
-                                <div class="form-group">
-                                    <input required class="form-control" type="email" name="email"
-                                        id="un" placeholder="Email">
-                                </div>
-                                <br>
-                                <div class="form-group">
-                                    <input required class="form-control" type="password" name="password"
-                                        id="pw" placeholder="Password">
-                                </div>
-                            </center>
 
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary" name="btnSignup" value="yes">Signup</button>
-                </div>
-                </form>
-            </div>
-        </div>
-    </div>
     <div class="modal fade " id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="loginModalLabel">Login</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <div class="modal-body">
                     <div class="row">
@@ -437,13 +307,12 @@
                             @csrf
                             <center>
                                 <div class="form-group">
-                                    <input required class="form-control" type="email" name="email"
-                                        id="un" placeholder="Email">
+                                    <input required type="email" style="width:350px;margin-left: 50px;"
+                                        name="email" id="un" placeholder="Email">
                                 </div>
-                                <br>
                                 <div class="form-group">
-                                    <input required class="form-control" type="password" name="password"
-                                        id="pw" placeholder="Password">
+                                    <input required type="password" style="width:350px;margin-left: 50px;"
+                                        name="password" id="pw" placeholder="Password">
                                 </div>
                                 <div class="form-group">
                                     {{-- <a href="#" style="margin-left: -50px;">Create Account</a> --}}
@@ -455,57 +324,13 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary" name="btnLogin" value="yes">Login</button>
+                    <button type="submit" class="btn btn-primary" style="background-color: #ff589e" name="btnLogin"
+                        value="yes">Login</button>
                 </div>
                 </form>
             </div>
         </div>
     </div>
-
-    @if (session()->pull('errorAddUser'))
-        <script>
-            setTimeout(() => {
-                Swal.fire({
-                    position: 'center',
-                    icon: 'warning',
-                    title: 'Failed to add User, Please try again later',
-                    showConfirmButton: false,
-                    timer: 800
-                });
-            }, 500);
-        </script>
-        {{ session()->forget('errorAddUser') }}
-    @endif
-
-    @if (session()->pull('existEmail'))
-        <script>
-            setTimeout(() => {
-                Swal.fire({
-                    position: 'center',
-                    icon: 'warning',
-                    title: 'Email Already Exist, Please Try Again With New Email',
-                    showConfirmButton: false,
-                    timer: 800
-                });
-            }, 500);
-        </script>
-        {{ session()->forget('existEmail') }}
-    @endif
-
-    @if (session()->pull('successAddUser'))
-        <script>
-            setTimeout(() => {
-                Swal.fire({
-                    position: 'center',
-                    icon: 'success',
-                    title: 'Successfully Created An Account',
-                    showConfirmButton: false,
-                    timer: 800
-                });
-            }, 500);
-        </script>
-        {{ session()->forget('successAddUser') }}
-    @endif
 </body>
 
 </html>

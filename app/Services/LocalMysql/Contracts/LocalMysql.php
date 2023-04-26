@@ -11,5 +11,5 @@ interface LocalMysql
      */
     public function create(string $tableName, array $data, LocalMysqlListener $listener): void;
 
-    public function findAll(string $tableName, LocalMysqlListener $listener): void;
+    public function findAll(string $tableName, LocalMysqlListener $listener);
 }

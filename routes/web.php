@@ -6,6 +6,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PricingController;
 use App\Http\Controllers\SignOutController;
 use App\Http\Controllers\UserDasboardController;
+use App\Http\Controllers\UserSonogramController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,3 +30,4 @@ Route::resource('/login', LoginController::class);
 Route::post("/signup", [LoginController::class, 'signup']);
 Route::get("/signout", [SignOutController::class, 'index']);
 Route::resource('/userdashboard', UserDasboardController::class);
+Route::resource("/sonogram", UserSonogramController::class);

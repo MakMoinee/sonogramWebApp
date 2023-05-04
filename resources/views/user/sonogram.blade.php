@@ -85,8 +85,8 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto py-0">
-                <a href="/userdashboard" class="nav-item nav-link active">Home</a>
-                <a href="/sonogram" class="nav-item nav-link">Sonogram</a>
+                <a href="/userdashboard" class="nav-item nav-link">Home</a>
+                <a href="/sonogram" class="nav-item nav-link active">Sonogram</a>
                 <a href="/account" class="nav-item nav-link">Account</a>
                 {{-- <a href="/contact" class="nav-item nav-link">Contact</a> --}}
             </div>
@@ -103,28 +103,71 @@
     <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
         <div class="container">
             <div class="row g-5">
-                <div class="col-lg-7">
+                <div class="col-lg-12">
                     <div class="section-title mb-4">
-                        <h5 class="position-relative d-inline-block text-primary text-uppercase">About Us</h5>
-                        <h1 class="display-5 mb-0">PawScan - Your Trusted Sonogram Analysis Partner</h1>
+                        <h5 class="position-relative d-inline-block text-primary text-uppercase">Sonogram Analysis</h5>
+                        <h1 class="display-5 mb-0">Sonogram Table</h1>
                     </div>
-                    <h4 class="text-body fst-italic mb-4">At PawScan, we are passionate about providing reliable and
-                        accurate sonogram scanning services for Shi Tzus. As a leading web application, we specialize in
-                        analyzing sonogram images uploaded by users to provide valuable insights into the health and
-                        condition of their furry companions' Shi Tzu.</h4>
-                    <div class="row g-3">
-                        <div class="col-sm-6 wow zoomIn" data-wow-delay="0.6s">
-                            <h5 class="mb-3"><i class="fa fa-check-circle text-primary me-3"></i>24/7 Opened</h5>
-                            <h5 class="mb-3"><i class="fa fa-check-circle text-primary me-3"></i>Fair Prices</h5>
-                        </div>
+                    <div class="section-body mb-2">
+                        <button class="btn btn-primary">Upload Sonogram</button>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table border mb-0" id="sortTable">
+                            <thead class="table-light fw-semibold">
+                                <tr class="align-middle">
+                                    <th class="text-center">
+                                        <svg class="icon" width="16" height="16" viewBox="0 0 50 50"
+                                            data-name="Layer 1" id="Layer_1" xmlns="http://www.w3.org/2000/svg">
+                                            <defs>
+                                                <style>
+                                                    .cls-1 {
+                                                        fill: #231f20;
+                                                    }
+
+                                                    .cls-2 {
+                                                        fill: #00a1d3;
+                                                    }
+
+                                                    .cls-3 {
+                                                        fill: #ff8e5a;
+                                                    }
+
+                                                    .cls-4 {
+                                                        fill: #ffba50;
+                                                    }
+                                                </style>
+                                            </defs>
+                                            <title />
+                                            <path class="cls-1"
+                                                d="M43.125,4.5H6.875A2.377,2.377,0,0,0,4.5,6.875v36.25A2.377,2.377,0,0,0,6.875,45.5h36.25A2.377,2.377,0,0,0,45.5,43.125V6.875A2.377,2.377,0,0,0,43.125,4.5ZM44.5,43.125A1.377,1.377,0,0,1,43.125,44.5H6.875A1.377,1.377,0,0,1,5.5,43.125V6.875A1.377,1.377,0,0,1,6.875,5.5h36.25A1.377,1.377,0,0,1,44.5,6.875Z" />
+                                            <path class="cls-1"
+                                                d="M40,39.5h-.375V12a2.5,2.5,0,0,0-2.5-2.5H35.5A2.5,2.5,0,0,0,33,12V39.5H28.377V22a2.5,2.5,0,0,0-2.5-2.5H24.252a2.5,2.5,0,0,0-2.5,2.5V39.5H17.129V32a2.5,2.5,0,0,0-2.5-2.5H13A2.5,2.5,0,0,0,10.5,32v7.5H10a.5.5,0,0,0,0,1H40a.5.5,0,0,0,0-1Z" />
+                                            <path class="cls-2"
+                                                d="M34,12a1.5,1.5,0,0,1,1.5-1.5h1.625a1.5,1.5,0,0,1,1.5,1.5V39.5H34Z" />
+                                            <path class="cls-3"
+                                                d="M22.752,22a1.5,1.5,0,0,1,1.5-1.5h1.625a1.5,1.5,0,0,1,1.5,1.5V39.5H22.752Z" />
+                                            <path class="cls-4"
+                                                d="M11.5,32A1.5,1.5,0,0,1,13,30.5h1.625a1.5,1.5,0,0,1,1.5,1.5v7.5H11.5Z" />
+                                            <path class="cls-1"
+                                                d="M10,10.5h6.587a.5.5,0,0,0,0-1H10a.5.5,0,0,0,0,1Z" />
+                                            <path class="cls-1"
+                                                d="M10,13.415h6.587a.5.5,0,0,0,0-1H10a.5.5,0,0,0,0,1Z" />
+                                            <path class="cls-1"
+                                                d="M10,16.331h6.587a.5.5,0,0,0,0-1H10a.5.5,0,0,0,0,1Z" />
+                                        </svg>
+                                    </th>
+                                    <th>SID</th>
+                                    <th class="text-center">Date Submitted</th>
+                                    <th>Status</th>
+                                    <th class="text-center">Info</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
                     </div>
                 </div>
-                <div class="col-lg-5" style="min-height: 500px;">
-                    <div class="position-relative h-100">
-                        <img class="position-absolute w-100 h-100 rounded wow zoomIn" data-wow-delay="0.9s"
-                            src="img/about.jpg" style="object-fit: cover;">
-                    </div>
-                </div>
+
             </div>
         </div>
     </div>

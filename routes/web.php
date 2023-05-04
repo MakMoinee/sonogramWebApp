@@ -5,6 +5,8 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PricingController;
 use App\Http\Controllers\SignOutController;
+use App\Http\Controllers\UserDasboardController;
+use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,9 +20,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [WelcomeController::class, 'index']);
 
 Route::get("/about", [AboutController::class, 'index']);
 Route::get("/contact", [ContactController::class, 'index']);
@@ -28,3 +28,4 @@ Route::get("/pricing", [PricingController::class, 'index']);
 Route::resource('/login', LoginController::class);
 Route::post("/signup", [LoginController::class, 'signup']);
 Route::get("/signout", [SignOutController::class, 'index']);
+Route::resource('/userdashboard', UserDasboardController::class);

@@ -7,6 +7,7 @@ use App\Services\LocalMysql\Contracts\LocalMysqlListener;
 use App\Services\LocalMysql\LocalMysqlRepository;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
@@ -42,7 +43,32 @@ class LoginController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
+        if ($request->btnLogin) {
+            $email = $request->email;
+            $password = $request->password;
+
+            $queryResult = DB::table('susers')->where(['email' => $email])->get();
+            $data = json_decode($queryResult, true);
+            $users = array();
+
+            foreach ($data as $d) {
+                if (password_verify($password, $d['password'])) {
+                    array_push($users, $d);
+                    break;
+                }
+            }
+
+            if (count($users) > 0) {
+                session()->put("users", $users);
+                session()->put("successLogin", true);
+                return redirect("/userdashboard");
+            } else {
+                session()->put("errorLogin", true);
+                return redirect("/");
+            }
+        } else {
+            return redirect("/");
+        }
     }
 
     /**

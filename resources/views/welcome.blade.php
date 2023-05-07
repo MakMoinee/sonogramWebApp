@@ -462,6 +462,20 @@
         </div>
     </div>
 
+    @if (session()->pull('errorLogin'))
+        <script>
+            setTimeout(() => {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'warning',
+                    title: 'Wrong username or password',
+                    showConfirmButton: false,
+                    timer: 800
+                });
+            }, 500);
+        </script>
+        {{ session()->forget('errorLogin') }}
+    @endif
     @if (session()->pull('errorAddUser'))
         <script>
             setTimeout(() => {

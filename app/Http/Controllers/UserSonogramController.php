@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Sonogram;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class UserSonogramController extends Controller
 {
@@ -12,7 +16,8 @@ class UserSonogramController extends Controller
     public function index()
     {
         if (session()->exists("users")) {
-            return view("user.sonogram");
+            $sonograms = Sonogram::all();
+            return view("user.sonogram", ['sonograms' => $sonograms->toArray()]);
         } else {
             return redirect("/");
         }
@@ -31,7 +36,49 @@ class UserSonogramController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if (session()->exists("users")) {
+            $mUser = session()->pull("users");
+            session()->put("users", $mUser);
+            $userID = $mUser['userID'];
+
+            $files = $request->file("files");
+            $fileName = "";
+            $petName = $request->petName;
+
+            if ($files) {
+                $mimeType = $files->getMimeType();
+                if ($mimeType == "image/png" || $mimeType == "image/jpg" || $mimeType == "image/JPG" || $mimeType == "image/JPEG" || $mimeType == "image/jpeg" || $mimeType == "image/PNG") {
+                    $destinationPath = $_SERVER['DOCUMENT_ROOT'] . '/storage/sonograms';
+                    $fileName = strtotime(now()) . "." . $files->getClientOriginalExtension();
+                    $isFile = $files->move($destinationPath,  $fileName);
+                    chmod($destinationPath, 0755);
+
+                    if ($fileName != "") {
+                        $fileName = "/storage/sonograms" . $fileName;
+                        $sonogram = new Sonogram();
+                        $sonogram->petName = $petName;
+                        $sonogram->userID = $userID;
+                        $sonogram->imagePath = $fileName;
+                        $isSave = $sonogram->save();
+                        if ($isSave) {
+                            session()->put("successAddSonogram", true);
+                        } else {
+                            session()->put("errorAddSonogram", true);
+                        }
+                    } else {
+                        session()->put("errorAddSonogram", true);
+                    }
+                } else {
+                    session()->put("errorMimeTypeInvalid", true);
+                }
+            } else {
+                session()->put("errorFileEmpty", true);
+            }
+
+            return redirect("/sonogram");
+        } else {
+            return redirect("/");
+        }
     }
 
     /**
@@ -61,8 +108,31 @@ class UserSonogramController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id, Request $request)
     {
-        //
+        if (session()->exists("users")) {
+
+            if (isset($request->btnDeleteSonogram)) {
+                try {
+                    $originalDirectoryPath = $request->origImagePath;
+                    if ($originalDirectoryPath) {
+                        $destinationPath = $_SERVER['DOCUMENT_ROOT'] . $originalDirectoryPath;
+                        File::delete($destinationPath);
+                    }
+                } catch (Exception $e1) {
+                }
+
+                $isDelete = DB::table('sonograms')->where('sonogramID', '=', $id)->delete();
+                if ($isDelete) {
+                    session()->put("successDeleteSonogram", true);
+                } else {
+                    session()->put("errorDeleteSonogram", true);
+                }
+            }
+
+            return redirect("/sonogram");
+        } else {
+            return redirect("/");
+        }
     }
 }

@@ -32,6 +32,7 @@
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="css/uploadStyle.css">
 </head>
 
 <body>
@@ -109,9 +110,10 @@
                         <h1 class="display-5 mb-0">Sonogram Table</h1>
                     </div>
                     <div class="section-body mb-2">
-                        <button class="btn btn-primary">Upload Sonogram</button>
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#uploadModal">Upload
+                            Sonogram</button>
                     </div>
-                    <div class="table-responsive">
+                    <div class="table-responsive mb-5">
                         <table class="table border mb-0" id="sortTable">
                             <thead class="table-light fw-semibold">
                                 <tr class="align-middle">
@@ -157,13 +159,76 @@
                                         </svg>
                                     </th>
                                     <th>SID</th>
-                                    <th class="text-center">Date Submitted</th>
-                                    <th>Status</th>
-                                    <th class="text-center">Info</th>
+                                    <th class="text-center">Pet Name</th>
+                                    <th>Date Submitted</th>
+                                    <th class="text-center">Result Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
-                            <tbody></tbody>
+                            <tbody>
+                                @foreach ($sonograms as $item)
+                                    <tr class="align-middle">
+                                        <td class="text-center">
+
+                                        </td>
+                                        <td>
+                                            {{ $item['sonogramID'] }}
+                                        </td>
+                                        <td class="text-center">
+                                            {{ $item['petName'] }}
+                                        </td>
+                                        <td>
+                                            {{ date('Y-m-d', strtotime($item['created_at'])) }}
+                                        </td>
+                                        <td class="text-center">
+                                            In Progress
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-primary">View</button>
+                                            <button class="btn btn-danger" data-bs-toggle="modal"
+                                                data-bs-target="#deleteModal{{ $item['sonogramID'] }}">Delete</button>
+                                            <div class="modal fade " id="deleteModal{{ $item['sonogramID'] }}"
+                                                tabindex="-1" role="dialog"
+                                                aria-labelledby="deleteModalLabel{{ $item['sonogramID'] }}"
+                                                aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="row">
+                                                                <form
+                                                                    action="{{ route('sonogram.destroy', ['sonogram' => $item['sonogramID']]) }}"
+                                                                    method="POST" enctype="multipart/form-data"
+                                                                    autocomplete="off">
+                                                                    @method('delete')
+                                                                    @csrf
+                                                                    <center>
+                                                                        <div class="form-group">
+                                                                            <h4>Are You Sure You Want To Delete This
+                                                                                Sonogram Record ?</h4>
+                                                                            <input type="hidden" name="origImagePath"
+                                                                                value="{{ $item['imagePath'] }}">
+                                                                        </div>
+                                                                    </center>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-primary"
+                                                                name="btnDeleteSonogram" value="yes">Yes,
+                                                                proceed</button>
+                                                        </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -330,43 +395,70 @@
             </div>
         </div>
     </div>
-    <div class="modal fade " id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel"
+    <div class="modal fade " id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="uploadModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="loginModalLabel">Login</h5>
+                    <h5 class="modal-title" id="uploadModalLabel">Upload Sonogram</h5>
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <form action="/login" method="POST" enctype="multipart/form-data" autocomplete="off">
+                        <form action="/sonogram" method="POST" enctype="multipart/form-data" autocomplete="off">
                             @csrf
                             <center>
                                 <div class="form-group">
-                                    <input required class="form-control" type="email" name="email"
-                                        id="un" placeholder="Email">
+                                    <input required type="text" name="petName" id=""
+                                        placeholder="Pet Name" class="form-control">
+                                </div>
+                                <div class="form-group" style="margin-top: 10px;">
+                                    <button class="file-upload-btn" type="button"
+                                        onclick="$('.file-upload-input').trigger( 'click' )">Add
+                                        Image</button>
+
+                                    <div class="image-upload-wrap">
+                                        <input required class="file-upload-input" name="files" type='file'
+                                            onchange="readURL(this);" accept="image/*" />
+                                        <div class="drag-text">
+                                            <h3>Drag and drop a file or select add Image</h3>
+                                        </div>
+                                    </div>
+                                    <div class="file-upload-content">
+                                        <img class="file-upload-image" src="#" alt="your image"
+                                            width="100%" height="40%" />
+                                        <div class="image-title-wrap">
+                                            <button type="button" onclick="removeUpload()"
+                                                class="remove-image">Remove <span class="image-title">Uploaded
+                                                    Image</span></button>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div>
+                                        <p><b>Important Note:</b> To ensure accurate results for the sonogram analysis,
+                                            we
+                                            recommend a Shih Tzu's sonogram.
+                                            Please note that using a different
+                                            breed of pet may result in vague or inconclusive results. Thank you for your
+                                            understanding and cooperation in helping us provide the best possible
+                                            service.</p>
+                                    </div>
                                 </div>
                                 <br>
-                                <div class="form-group">
-                                    <input required class="form-control" type="password" name="password"
-                                        id="pw" placeholder="Password">
-                                </div>
-                                <div class="form-group">
-                                    {{-- <a href="#" style="margin-left: -50px;">Create Account</a> --}}
-                                    <a href="#" style="float: right;">Forgot Password?</a>
-                                </div>
                             </center>
 
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary" name="btnLogin" value="yes">Login</button>
+                    <button type="submit" class="btn btn-primary" name="btnLogin" value="yes">Proceed
+                        Uploading</button>
                 </div>
                 </form>
             </div>
         </div>
     </div>
+
+
 
     <div class="modal fade " id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel"
         aria-hidden="true">
@@ -396,19 +488,99 @@
         </div>
     </div>
 
-    @if (session()->pull('errorAddUser'))
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    $('.image-upload-wrap').hide();
+
+                    $('.file-upload-image').attr('src', e.target.result);
+                    $('.file-upload-content').show();
+
+                    $('.image-title').html(input.files[0].name);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+
+            } else {
+                removeUpload();
+            }
+        }
+
+        function removeUpload() {
+            $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+            $('.file-upload-content').hide();
+            $('.image-upload-wrap').show();
+        }
+        $('.image-upload-wrap').bind('dragover', function() {
+            $('.image-upload-wrap').addClass('image-dropping');
+        });
+        $('.image-upload-wrap').bind('dragleave', function() {
+            $('.image-upload-wrap').removeClass('image-dropping');
+        });
+    </script>
+
+    @if (session()->pull('errorMimeTypeInvalid'))
         <script>
             setTimeout(() => {
                 Swal.fire({
                     position: 'center',
                     icon: 'warning',
-                    title: 'Failed to add User, Please try again later',
+                    title: 'Failed to add Sonogram, Invalid File Format, Please try accepted file format: .jpg, .png, .jpeg',
                     showConfirmButton: false,
                     timer: 800
                 });
             }, 500);
         </script>
-        {{ session()->forget('errorAddUser') }}
+        {{ session()->forget('errorMimeTypeInvalid') }}
+    @endif
+
+    @if (session()->pull('errorFileEmpty'))
+        <script>
+            setTimeout(() => {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'warning',
+                    title: 'Uploaded file is empty, Please try again later',
+                    showConfirmButton: false,
+                    timer: 800
+                });
+            }, 500);
+        </script>
+        {{ session()->forget('errorFileEmpty') }}
+    @endif
+
+    @if (session()->pull('errorDeleteSonogram'))
+        <script>
+            setTimeout(() => {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'warning',
+                    title: 'Failed to delete Sonogram, Please try again later',
+                    showConfirmButton: false,
+                    timer: 800
+                });
+            }, 500);
+        </script>
+        {{ session()->forget('errorDeleteSonogram') }}
+    @endif
+
+    @if (session()->pull('errorAddSonogram'))
+        <script>
+            setTimeout(() => {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'warning',
+                    title: 'Failed to add Sonogram, Please try again later',
+                    showConfirmButton: false,
+                    timer: 800
+                });
+            }, 500);
+        </script>
+        {{ session()->forget('errorAddSonogram') }}
     @endif
 
     @if (session()->pull('existEmail'))
@@ -426,19 +598,34 @@
         {{ session()->forget('existEmail') }}
     @endif
 
-    @if (session()->pull('successLogin'))
+    @if (session()->pull('successDeleteSonogram'))
         <script>
             setTimeout(() => {
                 Swal.fire({
                     position: 'center',
                     icon: 'success',
-                    title: 'Successfully Login',
+                    title: 'Successfully Deleted Sonogram',
                     showConfirmButton: false,
                     timer: 800
                 });
             }, 500);
         </script>
-        {{ session()->forget('successLogin') }}
+        {{ session()->forget('successDeleteSonogram') }}
+    @endif
+
+    @if (session()->pull('successAddSonogram'))
+        <script>
+            setTimeout(() => {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Successfully Uploaded Sonogram',
+                    showConfirmButton: false,
+                    timer: 800
+                });
+            }, 500);
+        </script>
+        {{ session()->forget('successAddSonogram') }}
     @endif
 </body>
 

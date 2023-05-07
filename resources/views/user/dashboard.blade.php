@@ -383,6 +383,21 @@
         {{ session()->forget('existEmail') }}
     @endif
 
+
+    @if (session()->pull('successAddUser'))
+        <script>
+            setTimeout(() => {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Successfully Created Account. You are now Login',
+                    showConfirmButton: false,
+                    timer: 800
+                });
+            }, 500);
+        </script>
+        {{ session()->forget('successAddUser') }}
+    @endif
     @if (session()->pull('successLogin'))
         <script>
             setTimeout(() => {

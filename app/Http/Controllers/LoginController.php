@@ -173,8 +173,10 @@ class LoginDBListener implements LocalMysqlListener
             $isSave = $this->user->save();
 
             if ($isSave) {
+                $currentUser = DB::table("susers")->where('email', '=', $this->user->email)->get();
+                $resUser = json_decode($currentUser, true);
                 session()->put("successAddUser", true);
-                $mUser = $this->user->toArray();
+                $mUser = $resUser[0];
                 session()->put('users', $mUser);
             } else {
                 session()->put("errorAddUser", true);

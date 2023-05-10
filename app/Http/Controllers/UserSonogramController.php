@@ -39,7 +39,7 @@ class UserSonogramController extends Controller
         if (session()->exists("users")) {
             $mUser = session()->pull("users");
             session()->put("users", $mUser);
-            $userID = $mUser['userID'];
+            $userID = $mUser[0]['userID'];
 
             $files = $request->file("files");
             $fileName = "";

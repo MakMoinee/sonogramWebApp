@@ -111,8 +111,6 @@
                     <h4 class="text-body fst mb-4">{{ $results['petName'] }}</h4>
                     <div class="row g-3">
                         <div class="col-sm-6 wow zoomIn" data-wow-delay="0.6s">
-                            <h5 class="mb-3"><i class="fa fa-check-circle text-primary me-3"></i><b>Age of Shih Tzu:</b>
-                                {{ $results['age'] }}</h5>
                             <h5 class="mb-3"><i class="fa fa-check-circle text-primary me-3"></i><b>Pregnancy Stage:</b>
                                 {{ $results['pregnancyStage'] }}</h5>
                             <h5 class="mb-3"><i class="fa fa-check-circle text-primary me-3"></i><b>Number of Fetus:</b>

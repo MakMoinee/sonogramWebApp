@@ -25,7 +25,7 @@ class WelcomeController extends Controller
             $mUser = session()->pull("users");
             session()->put("users", $mUser);
 
-            $userType = $mUser['userType'];
+            $userType = $mUser[0]['userType'];
             if ($userType == 1) {
                 return redirect("/admindashboard");
             }

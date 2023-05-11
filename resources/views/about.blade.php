@@ -86,7 +86,7 @@
             <div class="navbar-nav ms-auto py-0">
                 <a href="/" class="nav-item nav-link">Home</a>
                 <a href="/about" class="nav-item nav-link active">About</a>
-                <a href="/pricing" class="nav-item nav-link">Pricing</a>
+                {{-- <a href="/pricing" class="nav-item nav-link">Pricing</a> --}}
                 <a href="/contact" class="nav-item nav-link">Contact</a>
             </div>
             <a href="#" class="btn btn-primary py-2 px-4 ms-3">Signup</a>

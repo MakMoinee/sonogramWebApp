@@ -17,6 +17,6 @@ class Sonogram extends Model
         'userID',
         'petName',
         "imagePath",
-        "createdAt",
+        "status",
     ];
 }

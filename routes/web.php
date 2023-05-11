@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\AdminDashboard;
+use App\Http\Controllers\AdminSonogramController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PricingController;
@@ -31,3 +33,5 @@ Route::post("/signup", [LoginController::class, 'signup']);
 Route::get("/signout", [SignOutController::class, 'index']);
 Route::resource('/userdashboard', UserDasboardController::class);
 Route::resource("/sonogram", UserSonogramController::class);
+Route::resource("/admindashboard", AdminDashboard::class);
+Route::resource("/adminsono", AdminSonogramController::class);

@@ -16,6 +16,8 @@ return new class extends Migration
             $table->integer('userID');
             $table->string('petName');
             $table->string('imagePath');
+            $table->string('status');
+            $table->string('remarks')->nullable(true);
             $table->timestamps();
         });
     }

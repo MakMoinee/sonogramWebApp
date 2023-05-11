@@ -85,9 +85,9 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto py-0">
-                <a href="/userdashboard" class="nav-item nav-link active">Home</a>
-                <a href="/sonogram" class="nav-item nav-link">Sonogram</a>
-                <a href="/account" class="nav-item nav-link">Account</a>
+                <a href="/admindashboard" class="nav-item nav-link active">Home</a>
+                <a href="/adminsono" class="nav-item nav-link">Sonogram</a>
+                <a href="/adminaccount" class="nav-item nav-link">Account</a>
                 {{-- <a href="/contact" class="nav-item nav-link">Contact</a> --}}
             </div>
             <a href="#" class="btn btn-primary py-2 px-4 ms-3" data-bs-target="#logoutModal"
@@ -139,11 +139,11 @@
                 <div class="col-lg-3 col-md-6">
                     <h3 class="text-white mb-4">Quick Links</h3>
                     <div class="d-flex flex-column justify-content-start">
-                        <a class="text-light mb-2" href="/userdashboard"><i
+                        <a class="text-light mb-2" href="/admindashboard"><i
                                 class="bi bi-arrow-right text-primary me-2"></i>Home</a>
-                        <a class="text-light" href="/sonogram"><i
+                        <a class="text-light" href="/adminsono"><i
                                 class="bi bi-arrow-right text-primary me-2"></i>Sonogram</a>
-                        <a class="text-light" href="/account"><i
+                        <a class="text-light" href="/adminaccount"><i
                                 class="bi bi-arrow-right text-primary me-2"></i>Account</a>
                     </div>
                 </div>

@@ -54,11 +54,12 @@ class UserSonogramController extends Controller
                     chmod($destinationPath, 0755);
 
                     if ($fileName != "") {
-                        $fileName = "/storage/sonograms" . $fileName;
+                        $fileName = "/storage/sonograms/" . $fileName;
                         $sonogram = new Sonogram();
                         $sonogram->petName = $petName;
                         $sonogram->userID = $userID;
                         $sonogram->imagePath = $fileName;
+                        $sonogram->status = "In Progress";
                         $isSave = $sonogram->save();
                         if ($isSave) {
                             session()->put("successAddSonogram", true);

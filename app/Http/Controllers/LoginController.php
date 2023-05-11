@@ -50,18 +50,26 @@ class LoginController extends Controller
             $queryResult = DB::table('susers')->where(['email' => $email])->get();
             $data = json_decode($queryResult, true);
             $users = array();
+            $userType = 0;
 
             foreach ($data as $d) {
                 if (password_verify($password, $d['password'])) {
+                    $userType = $d['userType'];
                     array_push($users, $d);
                     break;
                 }
             }
 
             if (count($users) > 0) {
-                session()->put("users", $users);
-                session()->put("successLogin", true);
-                return redirect("/userdashboard");
+                if ($userType == 1) {
+                    session()->put("users", $users);
+                    session()->put("successLogin", true);
+                    return redirect("/admindashboard");
+                } else {
+                    session()->put("users", $users);
+                    session()->put("successLogin", true);
+                    return redirect("/userdashboard");
+                }
             } else {
                 session()->put("errorLogin", true);
                 return redirect("/");
@@ -173,11 +181,11 @@ class LoginDBListener implements LocalMysqlListener
             $isSave = $this->user->save();
 
             if ($isSave) {
-                $currentUser = DB::table("susers")->where('email', '=', $this->user->email)->get();
-                $resUser = json_decode($currentUser, true);
+                // $currentUser = DB::table("susers")->where('email', '=', $this->user->email)->get();
+                // $resUser = json_decode($currentUser, true);
                 session()->put("successAddUser", true);
-                $mUser = $resUser[0];
-                session()->put('users', $mUser);
+                // $mUser = $resUser[0];
+                // session()->put('users', $mUser);
             } else {
                 session()->put("errorAddUser", true);
             }

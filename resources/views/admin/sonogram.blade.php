@@ -86,9 +86,9 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto py-0">
-                <a href="/userdashboard" class="nav-item nav-link">Home</a>
-                <a href="/sonogram" class="nav-item nav-link active">Sonogram</a>
-                <a href="/account" class="nav-item nav-link">Account</a>
+                <a href="/admindashboard" class="nav-item nav-link">Home</a>
+                <a href="/adminsono" class="nav-item nav-link active">Sonogram</a>
+                <a href="/adminaccount" class="nav-item nav-link">Account</a>
                 {{-- <a href="/contact" class="nav-item nav-link">Contact</a> --}}
             </div>
             <a href="#" class="btn btn-primary py-2 px-4 ms-3" data-bs-target="#logoutModal"
@@ -110,8 +110,6 @@
                         <h1 class="display-5 mb-0">Sonogram Table</h1>
                     </div>
                     <div class="section-body mb-2">
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#uploadModal">Upload
-                            Sonogram</button>
                     </div>
                     <div class="table-responsive mb-5">
                         <table class="table border mb-0" id="sortTable">
@@ -159,11 +157,12 @@
                                         </svg>
                                     </th>
                                     <th>SID</th>
-                                    <th class="text-center">Pet Name</th>
-                                    <th>Date Submitted</th>
-                                    <th class="text-center">Result Status</th>
-                                    <th>Remarks</th>
-                                    <th class="text-center">Action</th>
+                                    <th class="text-center">Client Name</th>
+                                    <th>Pet Name</th>
+                                    <th class="text-center">Date Submitted</th>
+                                    <th>Result Status</th>
+                                    <th class="text-center">Remarks</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -176,29 +175,82 @@
                                             {{ $item['sonogramID'] }}
                                         </td>
                                         <td class="text-center">
+                                            {{ $item['fullName'] }}
+                                        </td>
+                                        <td>
                                             {{ $item['petName'] }}
                                         </td>
-                                        <td>
+                                        <td class="text-center">
                                             {{ date('Y-m-d', strtotime($item['created_at'])) }}
                                         </td>
-                                        <td class="text-center">
+                                        <td>
                                             {{ $item['status'] }}
                                         </td>
-                                        <td>
-                                            @if (isset($item['remarks']))
-                                                {{ $item['remarks'] }}
-                                            @else
-                                                None
-                                            @endif
-
-                                        </td>
                                         <td class="text-center">
-                                            <button class="btn btn-primary">View</button>
-                                            <button class="btn btn-danger" data-bs-toggle="modal"
-                                                data-bs-target="#deleteModal{{ $item['sonogramID'] }}">Delete</button>
-                                            <div class="modal fade " id="deleteModal{{ $item['sonogramID'] }}"
+                                            None
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-warning" data-bs-toggle="modal"
+                                                data-bs-target="#viewModal{{ $item['sonogramID'] }}">Review</button>
+                                            <div class="modal fade " id="viewModal{{ $item['sonogramID'] }}"
                                                 tabindex="-1" role="dialog"
-                                                aria-labelledby="deleteModalLabel{{ $item['sonogramID'] }}"
+                                                aria-labelledby="viewModalLabel{{ $item['sonogramID'] }}"
+                                                aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title"
+                                                                id="viewModalLabel{{ $item['sonogramID'] }}">Review
+                                                                Sonogram</h5>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="row">
+                                                                <form action="/sonogram" method="POST"
+                                                                    enctype="multipart/form-data" autocomplete="off">
+                                                                    @csrf
+                                                                    <center>
+                                                                        <div class="form-group">
+                                                                            <label for="petName"
+                                                                                style="float: left;">Pet Name:</label>
+                                                                            <br>
+                                                                            <input readonly type="text"
+                                                                                name="petName" id=""
+                                                                                placeholder="Pet Name"
+                                                                                class="form-control"
+                                                                                value="{{ $item['petName'] }}">
+                                                                        </div>
+                                                                        <br>
+                                                                        <div class="form-group">
+                                                                            <label for="sonogram"
+                                                                                style="float: left;">Uploaded
+                                                                                Sonogram:</label>
+                                                                            <br>
+                                                                            <img style="margin-top: 10px"
+                                                                                src="{{ $item['imagePath'] }}"
+                                                                                alt="" srcset=""
+                                                                                class="form-control">
+                                                                        </div>
+                                                                        <br>
+                                                                    </center>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-primary"
+                                                                name="btnLogin" value="yes">Accept Sonogram and
+                                                                Proceed</button>
+                                                        </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button class="btn btn-danger" data-bs-toggle="modal"
+                                                data-bs-target="#declineModal{{ $item['sonogramID'] }}">Decline</button>
+                                            <div class="modal fade " id="declineModal{{ $item['sonogramID'] }}"
+                                                tabindex="-1" role="dialog"
+                                                aria-labelledby="declineModalLabel{{ $item['sonogramID'] }}"
                                                 aria-hidden="true">
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
@@ -207,19 +259,24 @@
                                                         <div class="modal-body">
                                                             <div class="row">
                                                                 <form
-                                                                    action="{{ route('sonogram.destroy', ['sonogram' => $item['sonogramID']]) }}"
+                                                                    action="{{ route('adminsono.destroy', ['adminsono' => $item['sonogramID']]) }}"
                                                                     method="POST" enctype="multipart/form-data"
                                                                     autocomplete="off">
                                                                     @method('delete')
                                                                     @csrf
                                                                     <center>
                                                                         <div class="form-group">
-                                                                            <h4>Are You Sure You Want To Delete This
+                                                                            <h4>Are You Sure You Want To Decline This
                                                                                 Sonogram Record ?</h4>
                                                                             <input type="hidden" name="origImagePath"
                                                                                 value="{{ $item['imagePath'] }}">
                                                                         </div>
                                                                     </center>
+                                                                    <div class="form-group">
+                                                                        <input required type="text" name="remarks"
+                                                                            id="" class="form-control"
+                                                                            placeholder="Remarks">
+                                                                    </div>
 
                                                             </div>
                                                         </div>
@@ -257,11 +314,11 @@
                 <div class="col-lg-3 col-md-6">
                     <h3 class="text-white mb-4">Quick Links</h3>
                     <div class="d-flex flex-column justify-content-start">
-                        <a class="text-light mb-2" href="/userdashboard"><i
+                        <a class="text-light mb-2" href="/admindashboard"><i
                                 class="bi bi-arrow-right text-primary me-2"></i>Home</a>
-                        <a class="text-light" href="/sonogram"><i
+                        <a class="text-light" href="/adminsono"><i
                                 class="bi bi-arrow-right text-primary me-2"></i>Sonogram</a>
-                        <a class="text-light" href="/account"><i
+                        <a class="text-light" href="/adminaccount"><i
                                 class="bi bi-arrow-right text-primary me-2"></i>Account</a>
                     </div>
                 </div>

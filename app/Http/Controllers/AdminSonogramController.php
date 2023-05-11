@@ -72,8 +72,35 @@ class AdminSonogramController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id, Request $request)
     {
-        //
+        if (session()->exists("users")) {
+            $mUser = session()->pull("users");
+            session()->put("users", $mUser);
+            $userType = $mUser[0]['userType'];
+
+            if ($userType != 1) {
+                return redirect("/");
+            }
+
+            if (isset($request->btnDeclineSonogram)) {
+                $affectedRows = DB::table("sonograms")
+                    ->where("sonogramID", $id)
+                    ->update([
+                        "status" => "Decline",
+                        "remarks" => $request->remarks
+                    ]);
+
+                if ($affectedRows > 0) {
+                    session()->put("successDecline", true);
+                } else {
+                    session()->put("errorcDecline", true);
+                }
+            }
+
+            return redirect("/adminsono");
+        } else {
+            return redirect("/");
+        }
     }
 }

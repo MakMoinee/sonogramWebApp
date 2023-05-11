@@ -187,110 +187,188 @@
                                             {{ $item['status'] }}
                                         </td>
                                         <td class="text-center">
-                                            None
+                                            @if (isset($item['remarks']) && $item['remarks'] != '')
+                                                {{ $item['remarks'] }}
+                                            @else
+                                                None
+                                            @endif
                                         </td>
                                         <td>
-                                            <button class="btn btn-warning" data-bs-toggle="modal"
-                                                data-bs-target="#viewModal{{ $item['sonogramID'] }}">Review</button>
-                                            <div class="modal fade " id="viewModal{{ $item['sonogramID'] }}"
-                                                tabindex="-1" role="dialog"
-                                                aria-labelledby="viewModalLabel{{ $item['sonogramID'] }}"
-                                                aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title"
-                                                                id="viewModalLabel{{ $item['sonogramID'] }}">Review
-                                                                Sonogram</h5>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <div class="row">
-                                                                <form action="/sonogram" method="POST"
-                                                                    enctype="multipart/form-data" autocomplete="off">
-                                                                    @csrf
-                                                                    <center>
-                                                                        <div class="form-group">
-                                                                            <label for="petName"
-                                                                                style="float: left;">Pet Name:</label>
+                                            @if ($item['status'] != 'Decline')
+                                                <button class="btn btn-warning" data-bs-toggle="modal"
+                                                    data-bs-target="#viewModal{{ $item['sonogramID'] }}">Review</button>
+                                                <div class="modal fade " id="viewModal{{ $item['sonogramID'] }}"
+                                                    tabindex="-1" role="dialog"
+                                                    aria-labelledby="viewModalLabel{{ $item['sonogramID'] }}"
+                                                    aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title"
+                                                                    id="viewModalLabel{{ $item['sonogramID'] }}">Review
+                                                                    Sonogram</h5>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="row">
+                                                                    <form action="/sonogram" method="POST"
+                                                                        enctype="multipart/form-data"
+                                                                        autocomplete="off">
+                                                                        @csrf
+                                                                        <center>
+                                                                            <div class="form-group">
+                                                                                <label for="petName"
+                                                                                    style="float: left;">Pet
+                                                                                    Name:</label>
+                                                                                <br>
+                                                                                <input readonly type="text"
+                                                                                    name="petName" id=""
+                                                                                    placeholder="Pet Name"
+                                                                                    class="form-control"
+                                                                                    value="{{ $item['petName'] }}">
+                                                                            </div>
                                                                             <br>
-                                                                            <input readonly type="text"
-                                                                                name="petName" id=""
-                                                                                placeholder="Pet Name"
+                                                                            <div class="form-group">
+                                                                                <label for="sonogram"
+                                                                                    style="float: left;">Uploaded
+                                                                                    Sonogram:</label>
+                                                                                <br>
+                                                                                <img style="margin-top: 10px"
+                                                                                    src="{{ $item['imagePath'] }}"
+                                                                                    alt="" srcset=""
+                                                                                    class="form-control">
+                                                                            </div>
+                                                                            <br>
+                                                                        </center>
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal">Close</button>
+                                                                <button type="submit" class="btn btn-primary"
+                                                                    name="btnLogin" value="yes">Accept Sonogram and
+                                                                    Proceed</button>
+                                                            </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <button class="btn btn-danger" data-bs-toggle="modal"
+                                                    data-bs-target="#declineModal{{ $item['sonogramID'] }}">Decline</button>
+                                                <div class="modal fade " id="declineModal{{ $item['sonogramID'] }}"
+                                                    tabindex="-1" role="dialog"
+                                                    aria-labelledby="declineModalLabel{{ $item['sonogramID'] }}"
+                                                    aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="row">
+                                                                    <form
+                                                                        action="{{ route('adminsono.destroy', ['adminsono' => $item['sonogramID']]) }}"
+                                                                        method="POST" enctype="multipart/form-data"
+                                                                        autocomplete="off">
+                                                                        @method('delete')
+                                                                        @csrf
+                                                                        <center>
+                                                                            <div class="form-group">
+                                                                                <h4>Are You Sure You Want To Decline
+                                                                                    This
+                                                                                    Sonogram Record ?</h4>
+                                                                                <input type="hidden"
+                                                                                    name="origImagePath"
+                                                                                    value="{{ $item['imagePath'] }}">
+                                                                            </div>
+                                                                        </center>
+                                                                        <div class="form-group">
+                                                                            <input required type="text"
+                                                                                name="remarks" id=""
                                                                                 class="form-control"
-                                                                                value="{{ $item['petName'] }}">
+                                                                                placeholder="Remarks">
                                                                         </div>
-                                                                        <br>
-                                                                        <div class="form-group">
-                                                                            <label for="sonogram"
-                                                                                style="float: left;">Uploaded
-                                                                                Sonogram:</label>
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal">Close</button>
+                                                                <button type="submit" class="btn btn-primary"
+                                                                    name="btnDeclineSonogram" value="yes">Yes,
+                                                                    proceed</button>
+                                                            </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @else
+                                                <button class="btn btn-success" data-bs-toggle="modal"
+                                                    data-bs-target="#viewModal{{ $item['sonogramID'] }}">View</button>
+                                                <div class="modal fade " id="viewModal{{ $item['sonogramID'] }}"
+                                                    tabindex="-1" role="dialog"
+                                                    aria-labelledby="viewModalLabel{{ $item['sonogramID'] }}"
+                                                    aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title"
+                                                                    id="viewModalLabel{{ $item['sonogramID'] }}">
+                                                                    View
+                                                                    Sonogram</h5>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="row">
+                                                                    <form action="#" method="POST"
+                                                                        enctype="multipart/form-data"
+                                                                        autocomplete="off">
+                                                                        @csrf
+                                                                        <center>
+                                                                            <div class="form-group">
+                                                                                <label for="petName"
+                                                                                    style="float: left;">Pet
+                                                                                    Name:</label>
+                                                                                <br>
+                                                                                <input readonly type="text"
+                                                                                    name="petName" id=""
+                                                                                    placeholder="Pet Name"
+                                                                                    class="form-control"
+                                                                                    value="{{ $item['petName'] }}">
+                                                                            </div>
                                                                             <br>
-                                                                            <img style="margin-top: 10px"
-                                                                                src="{{ $item['imagePath'] }}"
-                                                                                alt="" srcset=""
-                                                                                class="form-control">
-                                                                        </div>
-                                                                        <br>
-                                                                    </center>
+                                                                            <div class="form-group">
+                                                                                <label for="sonogram"
+                                                                                    style="float: left;">Uploaded
+                                                                                    Sonogram:</label>
+                                                                                <br>
+                                                                                <img style="margin-top: 10px"
+                                                                                    src="{{ $item['imagePath'] }}"
+                                                                                    alt="" srcset=""
+                                                                                    class="form-control">
+                                                                            </div>
+                                                                            <br>
+                                                                            <div class="form-group">
+                                                                                <label for="sonogram"
+                                                                                    style="float: left;">Remarks:</label>
+                                                                                <br>
+                                                                                <input readonly type="text"
+                                                                                    name="" id=""
+                                                                                    value="{{ $item['remarks'] }}"
+                                                                                    class="form-control">
+                                                                            </div>
+                                                                        </center>
 
+                                                                </div>
                                                             </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal">Close</button>
+                                                            </div>
+                                                            </form>
                                                         </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary"
-                                                                data-bs-dismiss="modal">Close</button>
-                                                            <button type="submit" class="btn btn-primary"
-                                                                name="btnLogin" value="yes">Accept Sonogram and
-                                                                Proceed</button>
-                                                        </div>
-                                                        </form>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <button class="btn btn-danger" data-bs-toggle="modal"
-                                                data-bs-target="#declineModal{{ $item['sonogramID'] }}">Decline</button>
-                                            <div class="modal fade " id="declineModal{{ $item['sonogramID'] }}"
-                                                tabindex="-1" role="dialog"
-                                                aria-labelledby="declineModalLabel{{ $item['sonogramID'] }}"
-                                                aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <div class="row">
-                                                                <form
-                                                                    action="{{ route('adminsono.destroy', ['adminsono' => $item['sonogramID']]) }}"
-                                                                    method="POST" enctype="multipart/form-data"
-                                                                    autocomplete="off">
-                                                                    @method('delete')
-                                                                    @csrf
-                                                                    <center>
-                                                                        <div class="form-group">
-                                                                            <h4>Are You Sure You Want To Decline This
-                                                                                Sonogram Record ?</h4>
-                                                                            <input type="hidden" name="origImagePath"
-                                                                                value="{{ $item['imagePath'] }}">
-                                                                        </div>
-                                                                    </center>
-                                                                    <div class="form-group">
-                                                                        <input required type="text" name="remarks"
-                                                                            id="" class="form-control"
-                                                                            placeholder="Remarks">
-                                                                    </div>
+                                            @endif
 
-                                                            </div>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary"
-                                                                data-bs-dismiss="modal">Close</button>
-                                                            <button type="submit" class="btn btn-primary"
-                                                                name="btnDeleteSonogram" value="yes">Yes,
-                                                                proceed</button>
-                                                        </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -675,19 +753,19 @@
         {{ session()->forget('successDeleteSonogram') }}
     @endif
 
-    @if (session()->pull('successAddSonogram'))
+    @if (session()->pull('successDecline'))
         <script>
             setTimeout(() => {
                 Swal.fire({
                     position: 'center',
                     icon: 'success',
-                    title: 'Successfully Uploaded Sonogram',
+                    title: 'Successfully Declined Sonogram',
                     showConfirmButton: false,
                     timer: 800
                 });
             }, 500);
         </script>
-        {{ session()->forget('successAddSonogram') }}
+        {{ session()->forget('successDecline') }}
     @endif
 </body>
 

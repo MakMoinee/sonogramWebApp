@@ -11,7 +11,7 @@
  Target Server Version : 80030 (8.0.30)
  File Encoding         : 65001
 
- Date: 27/04/2023 04:35:30
+ Date: 11/05/2023 15:11:37
 */
 
 SET NAMES utf8mb4;
@@ -46,7 +46,7 @@ CREATE TABLE `migrations`  (
   `migration` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of migrations
@@ -56,6 +56,8 @@ INSERT INTO `migrations` VALUES (2, '2014_10_12_100000_create_password_reset_tok
 INSERT INTO `migrations` VALUES (3, '2019_08_19_000000_create_failed_jobs_table', 1);
 INSERT INTO `migrations` VALUES (4, '2019_12_14_000001_create_personal_access_tokens_table', 1);
 INSERT INTO `migrations` VALUES (5, '2023_04_26_193402_create_s_users_table', 1);
+INSERT INTO `migrations` VALUES (6, '2023_05_07_150653_create_sonograms_table', 1);
+INSERT INTO `migrations` VALUES (7, '2023_05_11_060732_create_results_table', 1);
 
 -- ----------------------------
 -- Table structure for password_reset_tokens
@@ -97,6 +99,46 @@ CREATE TABLE `personal_access_tokens`  (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for results
+-- ----------------------------
+DROP TABLE IF EXISTS `results`;
+CREATE TABLE `results`  (
+  `resultID` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `sonogramID` int NOT NULL,
+  `age` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `pregnancyStage` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `numberOfFetus` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `healthStatus` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`resultID`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of results
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for sonograms
+-- ----------------------------
+DROP TABLE IF EXISTS `sonograms`;
+CREATE TABLE `sonograms`  (
+  `sonogramID` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `userID` int NOT NULL,
+  `petName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `imagePath` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `remarks` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`sonogramID`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of sonograms
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for susers
 -- ----------------------------
 DROP TABLE IF EXISTS `susers`;
@@ -114,12 +156,13 @@ CREATE TABLE `susers`  (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`userID`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of susers
 -- ----------------------------
-INSERT INTO `susers` VALUES (1, 'Juan', 'Santos', 'Dela Cruz', 'Sample Address', '1998-10-13', '09090464399', 'sample@gmail.com', '$2y$10$Ztpp7FXpuci77iG0G.T1ceSfTDsPnFPX.nTP9WUrda91nAOBg9w62', 2, '2023-04-26 20:30:27', '2023-04-26 20:30:27');
+INSERT INTO `susers` VALUES (1, 'Administrator', 'X', 'Administrator', 'default', '1998-01-01', '', 'admin@default.com', '$2y$10$xDSKXynYvpTbxU9wKnZqjeY71sR0YK11GVRDaAW0vyKi8sZBPAkqS', 1, '2023-05-11 06:43:00', '2023-05-11 06:43:00');
+INSERT INTO `susers` VALUES (2, 'John', 'X', 'Doe', 'Sample Address', '1998-10-13', '09269440075', 'sample@gmail.com', '$2y$10$0oweO6.PUAIt1FHMKhTNMu3oXL6W0BGQ95VG4PUess9w98OVC2h2e', 2, '2023-05-11 06:43:25', '2023-05-11 06:43:25');
 
 -- ----------------------------
 -- Table structure for users
@@ -141,5 +184,17 @@ CREATE TABLE `users`  (
 -- ----------------------------
 -- Records of users
 -- ----------------------------
+
+-- ----------------------------
+-- View structure for vwresults
+-- ----------------------------
+DROP VIEW IF EXISTS `vwresults`;
+CREATE ALGORITHM = UNDEFINED SQL SECURITY DEFINER VIEW `vwresults` AS select `results`.`resultID` AS `resultID`,`sonograms`.`petName` AS `petName`,`results`.`sonogramID` AS `sonogramID`,`results`.`age` AS `age`,`results`.`pregnancyStage` AS `pregnancyStage`,`results`.`numberOfFetus` AS `numberOfFetus`,`results`.`healthStatus` AS `healthStatus`,`results`.`created_at` AS `created_at`,`results`.`updated_at` AS `updated_at`,`sonograms`.`imagePath` AS `imagePath` from (`results` join `sonograms` on((`results`.`sonogramID` = `sonograms`.`sonogramID`)));
+
+-- ----------------------------
+-- View structure for vwsonograms
+-- ----------------------------
+DROP VIEW IF EXISTS `vwsonograms`;
+CREATE ALGORITHM = UNDEFINED SQL SECURITY DEFINER VIEW `vwsonograms` AS select `sonograms`.`sonogramID` AS `sonogramID`,`sonograms`.`userID` AS `userID`,concat(`susers`.`firstName`,' ',`susers`.`middleName`,' ',`susers`.`lastName`) AS `fullName`,`sonograms`.`imagePath` AS `imagePath`,`sonograms`.`created_at` AS `created_at`,`sonograms`.`updated_at` AS `updated_at`,`sonograms`.`petName` AS `petName`,`sonograms`.`status` AS `status`,`sonograms`.`remarks` AS `remarks` from (`sonograms` join `susers` on((`sonograms`.`userID` = `susers`.`userID`)));
 
 SET FOREIGN_KEY_CHECKS = 1;

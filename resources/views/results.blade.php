@@ -109,18 +109,30 @@
                     </div>
                     <h3 class="display-12 mb-0">Pet Name: </h3>
                     <h4 class="text-body fst mb-4">{{ $results['petName'] }}</h4>
+                    <h3 class="display-12 mb-0">ToDos: </h3>
+                    <h6 class="text-body fst mb-4">
+                        @foreach ($todo as $item)
+                            @if ($item == '')
+                            @else
+                                - {{ $item }}
+                                <br>
+                            @endif
+                        @endforeach
+                    </h6>
                     <div class="row g-3">
                         <div class="col-sm-6 wow zoomIn" data-wow-delay="0.6s">
-                            <h5 class="mb-3"><i class="fa fa-check-circle text-primary me-3"></i><b>Pregnancy Stage:</b>
+                            <h5 class="mb-3"><i class="fa fa-check-circle text-primary me-3"></i><b>Pregnancy
+                                    Stage:</b>
                                 {{ $results['pregnancyStage'] }}</h5>
-                            <h5 class="mb-3"><i class="fa fa-check-circle text-primary me-3"></i><b>Number of Fetus:</b>
+                            <h5 class="mb-3"><i class="fa fa-check-circle text-primary me-3"></i><b>Number of
+                                    Fetus:</b>
                                 {{ $results['numberOfFetus'] }}</h5>
                             @if ($results['healthStatus'] == 'Poor')
                             @else
-                                <h5 class="mb-3"><i class="fa fa-check-circle text-primary me-3"></i><b>Health Status:</b>
+                                <h5 class="mb-3"><i class="fa fa-check-circle text-primary me-3"></i><b>Health
+                                        Status:</b>
                                     {{ $results['numberOfFetus'] }}</h5>
                             @endif
-                            {{-- <h5 class="mb-3"><i class="fa fa-check-circle text-primary me-3"></i>Fair Prices</h5> --}}
                         </div>
                     </div>
                 </div>
@@ -133,6 +145,9 @@
             </div>
         </div>
     </div>
+    <br>
+    <br>
+    <br>
     <!-- About End -->
 
 
@@ -439,7 +454,6 @@
         $('.image-upload-wrap').bind('dragleave', function() {
             $('.image-upload-wrap').removeClass('image-dropping');
         });
-
     </script>
 
     @if (session()->pull('errorMimeTypeInvalid'))

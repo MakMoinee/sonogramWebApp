@@ -33,15 +33,30 @@
     <link href="css/style.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="css/uploadStyle.css">
+    <style>
+        #myProgress {
+            width: 70%;
+            background-color: #ddd;
+            margin-top: 200px;
+            margin-left: 15%;
+            margin-right: 10%;
+        }
+
+        #myBar {
+            width: 1%;
+            height: 30px;
+            background-color: #04AA6D;
+            color: white;
+            padding: 5px;
+        }
+    </style>
 </head>
 
 <body>
 
-    <center>
-        <div class="spinner-border" style="margin-top: 200px;width: 3rem; height: 3rem;" role="status">
-            <span class="visually-hidden">Loading...</span>
-        </div>
-    </center>
+    <div id="myProgress">
+        <div id="myBar">Processing Results: 0%</div>
+    </div>
 
 
     <!-- JavaScript Libraries -->
@@ -64,10 +79,28 @@
         <input id="myID" type="hidden" name="id" value="{{ $id }}">
     </div>
     <script>
-        setTimeout(() => {
-            let myID = document.getElementById("myID");
-            window.location = '/show/results?id=' + myID.value;
-        }, 2000);
+        let i = 0;
+        if (i == 0) {
+            i = 1;
+            var elem = document.getElementById("myBar");
+            var width = 0;
+            var id = setInterval(frame, 1000);
+
+            function frame() {
+                if (width >= 100) {
+                    setTimeout(() => {
+                        let id = document.getElementById('myID');
+                        window.location = "/show/results?id=" + id.value;
+                    }, 500);
+                    clearInterval(id);
+                    i = 0;
+                } else {
+                    width++;
+                    elem.style.width = width + "%";
+                    elem.innerHTML = "Processing Results: " + width + "%";
+                }
+            }
+        }
     </script>
 </body>
 

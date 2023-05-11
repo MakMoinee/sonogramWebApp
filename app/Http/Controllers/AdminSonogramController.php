@@ -66,7 +66,31 @@ class AdminSonogramController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        if (session()->exists("users")) {
+            $mUser = session()->pull("users");
+            session()->put("users", $mUser);
+            $userType = $mUser[0]['userType'];
+
+            if ($userType != 1) {
+                return redirect("/");
+            }
+            if (isset($request->btnAcceptSonogram)) {
+                $affectedRows = DB::table("sonograms")
+                    ->where("sonogramID", $id)
+                    ->update([
+                        "status" => "Accepted",
+                        "remarks" => "Generating Results"
+                    ]);
+                if ($affectedRows > 0) {
+                    session()->put("successUpdate", true);
+                } else {
+                    session()->put("errorcUpdate", true);
+                }
+            }
+            return redirect("/adminsono");
+        } else {
+            return redirect("/");
+        }
     }
 
     /**

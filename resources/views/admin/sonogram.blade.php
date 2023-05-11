@@ -194,7 +194,7 @@
                                             @endif
                                         </td>
                                         <td>
-                                            @if ($item['status'] != 'Decline')
+                                            @if ($item['status'] == 'In Progress')
                                                 <button class="btn btn-warning" data-bs-toggle="modal"
                                                     data-bs-target="#viewModal{{ $item['sonogramID'] }}">Review</button>
                                                 <div class="modal fade " id="viewModal{{ $item['sonogramID'] }}"
@@ -210,9 +210,11 @@
                                                             </div>
                                                             <div class="modal-body">
                                                                 <div class="row">
-                                                                    <form action="/sonogram" method="POST"
-                                                                        enctype="multipart/form-data"
+                                                                    <form
+                                                                        action="{{ route('adminsono.update', ['adminsono' => $item['sonogramID']]) }}"
+                                                                        method="POST" enctype="multipart/form-data"
                                                                         autocomplete="off">
+                                                                        @method('put')
                                                                         @csrf
                                                                         <center>
                                                                             <div class="form-group">
@@ -246,7 +248,8 @@
                                                                 <button type="button" class="btn btn-secondary"
                                                                     data-bs-dismiss="modal">Close</button>
                                                                 <button type="submit" class="btn btn-primary"
-                                                                    name="btnLogin" value="yes">Accept Sonogram and
+                                                                    name="btnAcceptSonogram" value="yes">Accept
+                                                                    Sonogram and
                                                                     Proceed</button>
                                                             </div>
                                                             </form>
@@ -693,34 +696,34 @@
         {{ session()->forget('errorFileEmpty') }}
     @endif
 
-    @if (session()->pull('errorDeleteSonogram'))
+    @if (session()->pull('errorcUpdate'))
         <script>
             setTimeout(() => {
                 Swal.fire({
                     position: 'center',
                     icon: 'warning',
-                    title: 'Failed to delete Sonogram, Please try again later',
+                    title: 'Failed to accept Sonogram, Please try again later',
                     showConfirmButton: false,
                     timer: 800
                 });
             }, 500);
         </script>
-        {{ session()->forget('errorDeleteSonogram') }}
+        {{ session()->forget('errorcUpdate') }}
     @endif
 
-    @if (session()->pull('errorAddSonogram'))
+    @if (session()->pull('errorcDecline'))
         <script>
             setTimeout(() => {
                 Swal.fire({
                     position: 'center',
                     icon: 'warning',
-                    title: 'Failed to add Sonogram, Please try again later',
+                    title: 'Failed to decline Sonogram, Please try again later',
                     showConfirmButton: false,
                     timer: 800
                 });
             }, 500);
         </script>
-        {{ session()->forget('errorAddSonogram') }}
+        {{ session()->forget('errorcDecline') }}
     @endif
 
     @if (session()->pull('existEmail'))
@@ -738,19 +741,19 @@
         {{ session()->forget('existEmail') }}
     @endif
 
-    @if (session()->pull('successDeleteSonogram'))
+    @if (session()->pull('successUpdate'))
         <script>
             setTimeout(() => {
                 Swal.fire({
                     position: 'center',
                     icon: 'success',
-                    title: 'Successfully Deleted Sonogram',
+                    title: 'Successfully Accepted Sonogram',
                     showConfirmButton: false,
                     timer: 800
                 });
             }, 500);
         </script>
-        {{ session()->forget('successDeleteSonogram') }}
+        {{ session()->forget('successUpdate') }}
     @endif
 
     @if (session()->pull('successDecline'))

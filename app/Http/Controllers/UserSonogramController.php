@@ -16,8 +16,12 @@ class UserSonogramController extends Controller
     public function index()
     {
         if (session()->exists("users")) {
-            $sonograms = Sonogram::all();
-            return view("user.sonogram", ['sonograms' => $sonograms->toArray()]);
+            $mUser = session()->pull("users");
+            session()->put("users", $mUser);
+            $userID = $mUser[0]['userID'];
+            $queryResult = DB::table("sonograms")->where("userID", $userID)->get();
+            $sonograms = json_decode($queryResult,true);
+            return view("user.sonogram", ['sonograms' => $sonograms]);
         } else {
             return redirect("/");
         }

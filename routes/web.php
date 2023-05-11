@@ -36,4 +36,6 @@ Route::resource('/userdashboard', UserDasboardController::class);
 Route::resource("/sonogram", UserSonogramController::class);
 Route::resource("/admindashboard", AdminDashboard::class);
 Route::resource("/adminsono", AdminSonogramController::class);
+Route::get("/show/results", [ResultsController::class, 'showResults']);
 Route::resource("/results", ResultsController::class);
+

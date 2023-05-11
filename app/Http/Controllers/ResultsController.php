@@ -13,17 +13,8 @@ class ResultsController extends Controller
     public function index(Request $request)
     {
         if (session()->exists("users")) {
-
             $id = $request->query("id");
-            if ($id) {
-
-                $queryResult = DB::table("vwResults")->where("sonogramID", $id)->get();
-                $results = json_decode($queryResult, true);
-
-                return view('results', ['results' => $results[0]]);
-            } else {
-                return redirect("/");
-            }
+            return view('loading', ['id' => $id]);
         } else {
             return redirect("/");
         }
@@ -75,5 +66,24 @@ class ResultsController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function showResults(Request $request)
+    {
+        if (session()->exists("users")) {
+
+            $id = $request->query("id");
+            if ($id) {
+
+                $queryResult = DB::table("vwResults")->where("sonogramID", $id)->get();
+                $results = json_decode($queryResult, true);
+
+                return view('results', ['results' => $results[0]]);
+            } else {
+                return redirect("/");
+            }
+        } else {
+            return redirect("/");
+        }
     }
 }

@@ -17,22 +17,22 @@
         rel="stylesheet">
 
     <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax//libs/font-awesome/5.10.0//css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
-    <!-- Libraries Stylesheet -->
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="lib/animate/animate.min.css" rel="stylesheet">
-    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
-    <link href="lib/twentytwenty/twentytwenty.css" rel="stylesheet" />
+    <!-- /libraries Stylesheet -->
+    <link href="/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="/lib/tempusdominus//css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+    <link href="/lib/twentytwenty/twentytwenty.css" rel="stylesheet" />
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Template Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link rel="stylesheet" href="css/uploadStyle.css">
+    <link rel="stylesheet" href="/css/uploadStyle.css">
 </head>
 
 <body>
@@ -48,6 +48,7 @@
         <div class="spinner-grow text-secondary m-1" role="status">
             <span class="sr-only">Loading...</span>
         </div>
+
     </div>
     <!-- Spinner End -->
 
@@ -110,12 +111,17 @@
                     <h4 class="text-body fst mb-4">{{ $results['petName'] }}</h4>
                     <div class="row g-3">
                         <div class="col-sm-6 wow zoomIn" data-wow-delay="0.6s">
-                            <h5 class="mb-3"><i class="fa fa-check-circle text-primary me-3"></i>Age:
+                            <h5 class="mb-3"><i class="fa fa-check-circle text-primary me-3"></i><b>Age of Shih Tzu:</b>
                                 {{ $results['age'] }}</h5>
-                            <h5 class="mb-3"><i class="fa fa-check-circle text-primary me-3"></i>Pregnancy Stage:
+                            <h5 class="mb-3"><i class="fa fa-check-circle text-primary me-3"></i><b>Pregnancy Stage:</b>
                                 {{ $results['pregnancyStage'] }}</h5>
-                            <h5 class="mb-3"><i class="fa fa-check-circle text-primary me-3"></i>Number of Fetus:
+                            <h5 class="mb-3"><i class="fa fa-check-circle text-primary me-3"></i><b>Number of Fetus:</b>
                                 {{ $results['numberOfFetus'] }}</h5>
+                            @if ($results['healthStatus'] == 'Poor')
+                            @else
+                                <h5 class="mb-3"><i class="fa fa-check-circle text-primary me-3"></i><b>Health Status:</b>
+                                    {{ $results['numberOfFetus'] }}</h5>
+                            @endif
                             {{-- <h5 class="mb-3"><i class="fa fa-check-circle text-primary me-3"></i>Fair Prices</h5> --}}
                         </div>
                     </div>
@@ -204,21 +210,21 @@
             class="bi bi-arrow-up"></i></a>
 
 
-    <!-- JavaScript Libraries -->
+    <!-- JavaScript /libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/wow/wow.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="lib/tempusdominus/js/moment.min.js"></script>
-    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
-    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
-    <script src="lib/twentytwenty/jquery.event.move.js"></script>
-    <script src="lib/twentytwenty/jquery.twentytwenty.js"></script>
+    <script src="/lib/wow/wow.min.js"></script>
+    <script src="/lib/easing/easing.min.js"></script>
+    <script src="/lib/waypoints/waypoints.min.js"></script>
+    <script src="/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="/lib/tempusdominus/js/moment.min.js"></script>
+    <script src="/lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src="/lib/twentytwenty/jquery.event.move.js"></script>
+    <script src="/lib/twentytwenty/jquery.twentytwenty.js"></script>
 
     <!-- Template Javascript -->
-    <script src="js/main.js"></script>
+    <script src="/js/main.js"></script>
     <div class="modal fade " id="signUpModal" tabindex="-1" role="dialog" aria-labelledby="signUpModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -346,7 +352,32 @@
             </div>
         </div>
     </div>
+    <div>
+        <button hidden data-bs-target="#loadingModal" data-bs-toggle="modal" id="btnShowLoading"></button>
+    </div>
+    <div class="modal fade " id="loadingModal" tabindex="-1" role="dialog" aria-labelledby="loadingModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <center>
+                            <div class="spinner-border" role="status">
+                                <span class="visually-hidden"> Loading... </span>
+                            </div>
+                        </center>
 
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button style="opacity: 0;" type="button" class="btn btn-secondary"
+                        data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <div class="modal fade " id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel"
@@ -410,6 +441,7 @@
         $('.image-upload-wrap').bind('dragleave', function() {
             $('.image-upload-wrap').removeClass('image-dropping');
         });
+
     </script>
 
     @if (session()->pull('errorMimeTypeInvalid'))
@@ -516,6 +548,7 @@
         </script>
         {{ session()->forget('successAddSonogram') }}
     @endif
+    <script></script>
 </body>
 
 </html>

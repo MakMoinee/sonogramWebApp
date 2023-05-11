@@ -185,8 +185,13 @@
                                             {{ $item['status'] }}
                                         </td>
                                         <td>
-                                            @if (isset($item['remarks']))
-                                                {{ $item['remarks'] }}
+                                            @if (isset($item['remarks']) && $item['remarks'] != '')
+                                                @if ($item['remarks'] == 'See Results')
+                                                    <a target="_blank" href="/results?id={{ $item['sonogramID'] }}"
+                                                        class="btn btn-primary">{{ $item['remarks'] }}</a>
+                                                @else
+                                                    {{ $item['remarks'] }}
+                                                @endif
                                             @else
                                                 None
                                             @endif

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Results;
 use App\Models\Sonogram;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 class AdminSonogramController extends Controller
@@ -78,11 +80,25 @@ class AdminSonogramController extends Controller
                 $affectedRows = DB::table("sonograms")
                     ->where("sonogramID", $id)
                     ->update([
-                        "status" => "Accepted",
-                        "remarks" => "Generating Results"
+                        "status" => "Successful",
+                        "remarks" => "See Results"
                     ]);
                 if ($affectedRows > 0) {
-                    session()->put("successUpdate", true);
+
+                    $generatedResult = $this->getDetails(rand(1, 3));
+                    $generatedResult->sonogramID = $id;
+                    $isSave = $generatedResult->save();
+                    if ($isSave) {
+                        session()->put("successUpdate", true);
+                    } else {
+                        $affectedRows = DB::table("sonograms")
+                            ->where("sonogramID", $id)
+                            ->update([
+                                "status" => "In Progress",
+                                "remarks" => ""
+                            ]);
+                        session()->put("errorcUpdate", true);
+                    }
                 } else {
                     session()->put("errorcUpdate", true);
                 }
@@ -126,5 +142,46 @@ class AdminSonogramController extends Controller
         } else {
             return redirect("/");
         }
+    }
+
+
+    private function getDetails(int $randomNum): Results
+    {
+        $newResults = new Results();
+
+        $list = $this->getListOfDetails();
+        $newResults = $list[$randomNum - 1];
+        return $newResults;
+    }
+
+    private function getListOfDetails(): Collection
+    {
+        $result = collect();
+        $arr = array();
+
+        $newResult = new Results();
+        $newResult->age = "1-2 years old";
+        $newResult->pregnancyStage = "Pre-pregnancy";
+        $newResult->numberOfFetus = "Singleton (One Fetus)";
+        $newResult->healthStatus = "Excellent";
+        array_push($arr, $newResult);
+
+        $newResult = new Results();
+        $newResult->age = "3-4 years old";
+        $newResult->pregnancyStage = "Early pregnancy (1-4 weeks)";
+        $newResult->numberOfFetus = "Two-Four Fetuses";
+        $newResult->healthStatus = "Good";
+        array_push($arr, $newResult);
+
+        $newResult = new Results();
+        $newResult->age = "5-6 years old";
+        $newResult->pregnancyStage = "Mid-pregnancy (4-6 weeks)";
+        $newResult->numberOfFetus = "Five or More Fetuses";
+        $newResult->healthStatus = "Fair";
+        array_push($arr, $newResult);
+
+        $result = collect($arr);
+
+        return $result;
     }
 }

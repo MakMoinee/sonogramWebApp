@@ -188,7 +188,12 @@
                                         </td>
                                         <td class="text-center">
                                             @if (isset($item['remarks']) && $item['remarks'] != '')
-                                                {{ $item['remarks'] }}
+                                                @if ($item['remarks'] == 'See Results')
+                                                    <a target="_blank" href="/results?id={{ $item['sonogramID'] }}"
+                                                        class="btn btn-primary">{{ $item['remarks'] }}</a>
+                                                @else
+                                                    {{ $item['remarks'] }}
+                                                @endif
                                             @else
                                                 None
                                             @endif
@@ -205,7 +210,8 @@
                                                         <div class="modal-content">
                                                             <div class="modal-header">
                                                                 <h5 class="modal-title"
-                                                                    id="viewModalLabel{{ $item['sonogramID'] }}">Review
+                                                                    id="viewModalLabel{{ $item['sonogramID'] }}">
+                                                                    Review
                                                                     Sonogram</h5>
                                                             </div>
                                                             <div class="modal-body">
@@ -238,6 +244,8 @@
                                                                                     src="{{ $item['imagePath'] }}"
                                                                                     alt="" srcset=""
                                                                                     class="form-control">
+                                                                                <input type="hidden" name="userID"
+                                                                                    value="{{ $item['userID'] }}">
                                                                             </div>
                                                                             <br>
                                                                         </center>
@@ -349,15 +357,18 @@
                                                                                     class="form-control">
                                                                             </div>
                                                                             <br>
-                                                                            <div class="form-group">
-                                                                                <label for="sonogram"
-                                                                                    style="float: left;">Remarks:</label>
-                                                                                <br>
-                                                                                <input readonly type="text"
-                                                                                    name="" id=""
-                                                                                    value="{{ $item['remarks'] }}"
-                                                                                    class="form-control">
-                                                                            </div>
+                                                                            @if ($item['remarks'] != 'See Results')
+                                                                                <div class="form-group">
+                                                                                    <label for="sonogram"
+                                                                                        style="float: left;">Remarks:</label>
+                                                                                    <br>
+                                                                                    <input readonly type="text"
+                                                                                        name="" id=""
+                                                                                        value="{{ $item['remarks'] }}"
+                                                                                        class="form-control">
+                                                                                </div>
+                                                                            @endif
+
                                                                         </center>
 
                                                                 </div>

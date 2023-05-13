@@ -131,7 +131,7 @@
                             @else
                                 <h5 class="mb-3"><i class="fa fa-check-circle text-primary me-3"></i><b>Health
                                         Status:</b>
-                                    {{ $results['numberOfFetus'] }}</h5>
+                                    {{ $results['healthStatus'] }}</h5>
                             @endif
                         </div>
                     </div>

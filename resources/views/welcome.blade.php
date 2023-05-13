@@ -158,9 +158,9 @@
                         <h1 class="display-5 mb-0">PawScan - Your Trusted Sonogram Analysis Partner</h1>
                     </div>
                     <h4 class="text-body fst-italic mb-4">At PawScan, we are passionate about providing reliable and
-                        accurate sonogram scanning services for Shi Tzus. As a leading web application, we specialize in
+                        accurate sonogram scanning services for Shih Tzus. As a leading web application, we specialize in
                         analyzing sonogram images uploaded by users to provide valuable insights into the health and
-                        condition of their furry companions' Shi Tzu.</h4>
+                        condition of their furry companions' Shih Tzu.</h4>
                     <div class="row g-3">
                         <div class="col-sm-6 wow zoomIn" data-wow-delay="0.6s">
                             <h5 class="mb-3"><i class="fa fa-check-circle text-primary me-3"></i>24/7 Opened</h5>

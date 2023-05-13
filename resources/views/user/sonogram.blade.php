@@ -198,47 +198,52 @@
 
                                         </td>
                                         <td class="text-center">
-                                            <button class="btn btn-primary">View</button>
-                                            <button class="btn btn-danger" data-bs-toggle="modal"
-                                                data-bs-target="#deleteModal{{ $item['sonogramID'] }}">Delete</button>
-                                            <div class="modal fade " id="deleteModal{{ $item['sonogramID'] }}"
-                                                tabindex="-1" role="dialog"
-                                                aria-labelledby="deleteModalLabel{{ $item['sonogramID'] }}"
-                                                aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <div class="row">
-                                                                <form
-                                                                    action="{{ route('sonogram.destroy', ['sonogram' => $item['sonogramID']]) }}"
-                                                                    method="POST" enctype="multipart/form-data"
-                                                                    autocomplete="off">
-                                                                    @method('delete')
-                                                                    @csrf
-                                                                    <center>
-                                                                        <div class="form-group">
-                                                                            <h4>Are You Sure You Want To Delete This
-                                                                                Sonogram Record ?</h4>
-                                                                            <input type="hidden" name="origImagePath"
-                                                                                value="{{ $item['imagePath'] }}">
-                                                                        </div>
-                                                                    </center>
-
+                                            @if ($item['remarks'] == 'See Results')
+                                            @else
+                                                <button class="btn btn-primary">View</button>
+                                                <button class="btn btn-danger" data-bs-toggle="modal"
+                                                    data-bs-target="#deleteModal{{ $item['sonogramID'] }}">Delete</button>
+                                                <div class="modal fade " id="deleteModal{{ $item['sonogramID'] }}"
+                                                    tabindex="-1" role="dialog"
+                                                    aria-labelledby="deleteModalLabel{{ $item['sonogramID'] }}"
+                                                    aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
                                                             </div>
+                                                            <div class="modal-body">
+                                                                <div class="row">
+                                                                    <form
+                                                                        action="{{ route('sonogram.destroy', ['sonogram' => $item['sonogramID']]) }}"
+                                                                        method="POST" enctype="multipart/form-data"
+                                                                        autocomplete="off">
+                                                                        @method('delete')
+                                                                        @csrf
+                                                                        <center>
+                                                                            <div class="form-group">
+                                                                                <h4>Are You Sure You Want To Delete This
+                                                                                    Sonogram Record ?</h4>
+                                                                                <input type="hidden"
+                                                                                    name="origImagePath"
+                                                                                    value="{{ $item['imagePath'] }}">
+                                                                            </div>
+                                                                        </center>
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal">Close</button>
+                                                                <button type="submit" class="btn btn-primary"
+                                                                    name="btnDeleteSonogram" value="yes">Yes,
+                                                                    proceed</button>
+                                                            </div>
+                                                            </form>
                                                         </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary"
-                                                                data-bs-dismiss="modal">Close</button>
-                                                            <button type="submit" class="btn btn-primary"
-                                                                name="btnDeleteSonogram" value="yes">Yes,
-                                                                proceed</button>
-                                                        </div>
-                                                        </form>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            @endif
+
                                         </td>
                                     </tr>
                                 @endforeach

@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Results;
 use App\Models\Sonogram;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class AdminSonogramController extends Controller
 {
@@ -84,21 +87,24 @@ class AdminSonogramController extends Controller
                         "remarks" => "See Results"
                     ]);
                 if ($affectedRows > 0) {
+                    session()->put("successUpdate", true);
+                    $this->callApi($id);
 
-                    $generatedResult = $this->getDetails(rand(1, 3));
-                    $generatedResult->sonogramID = $id;
-                    $isSave = $generatedResult->save();
-                    if ($isSave) {
-                        session()->put("successUpdate", true);
-                    } else {
-                        $affectedRows = DB::table("sonograms")
-                            ->where("sonogramID", $id)
-                            ->update([
-                                "status" => "In Progress",
-                                "remarks" => ""
-                            ]);
-                        session()->put("errorcUpdate", true);
-                    }
+                    // $generatedResult = $this->getDetails(rand(1, 3));
+                    // $generatedResult->sonogramID = $id;
+                    // $isSave = $generatedResult->save();
+                    // if ($isSave) {
+                    //     session()->put("successUpdate", true);
+                    //     $this->callApi($id);
+                    // } else {
+                    //     $affectedRows = DB::table("sonograms")
+                    //         ->where("sonogramID", $id)
+                    //         ->update([
+                    //             "status" => "In Progress",
+                    //             "remarks" => ""
+                    //         ]);
+                    //     session()->put("errorcUpdate", true);
+                    // }
                 } else {
                     session()->put("errorcUpdate", true);
                 }
@@ -183,5 +189,20 @@ class AdminSonogramController extends Controller
         $result = collect($arr);
 
         return $result;
+    }
+
+    private function callApi(string $id): void
+    {
+        $client = new Client();
+        $response = $client->post('http://localhost:5000/detect', [
+            'multipart' => [
+                [
+                    'name' => 'id',
+                    'contents' => $id
+                ]
+            ]
+        ]);
+
+        var_dump($response->getBody()->getContents());
     }
 }

@@ -88,7 +88,10 @@ class AdminSonogramController extends Controller
                     ]);
                 if ($affectedRows > 0) {
                     session()->put("successUpdate", true);
-                    $this->callApi($id);
+                    $queryResult = DB::table("sonograms")->where('sonogramID',$id)->get();
+                    $data = json_decode($queryResult,true);
+
+                    $this->callApi($id, $data[0]['imagePath']);
 
                     // $generatedResult = $this->getDetails(rand(1, 3));
                     // $generatedResult->sonogramID = $id;
@@ -191,7 +194,7 @@ class AdminSonogramController extends Controller
         return $result;
     }
 
-    private function callApi(string $id): void
+    private function callApi(string $id, string $imagePath): void
     {
         $client = new Client();
         $response = $client->post('http://localhost:5000/detect', [
@@ -199,10 +202,14 @@ class AdminSonogramController extends Controller
                 [
                     'name' => 'id',
                     'contents' => $id
+                ],
+                [
+                    'name' => 'image_url',
+                    'contents' => $imagePath
                 ]
             ]
         ]);
 
-        var_dump($response->getBody()->getContents());
+        // var_dump($response->getBody()->getContents());
     }
 }

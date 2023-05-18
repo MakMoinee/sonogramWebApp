@@ -19,6 +19,7 @@ class Results extends Model
         "pregnancyStage",
         "numberOfFetus",
         'healthStatus',
+        'imagePath',
         "created_at"
     ];
 }

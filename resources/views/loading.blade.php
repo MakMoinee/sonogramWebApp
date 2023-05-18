@@ -84,7 +84,7 @@
             i = 1;
             var elem = document.getElementById("myBar");
             var width = 0;
-            var id = setInterval(frame, 1000);
+            var id = setInterval(frame, 50);
 
             function frame() {
                 if (width >= 100) {

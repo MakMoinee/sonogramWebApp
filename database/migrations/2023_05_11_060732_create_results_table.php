@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string("pregnancyStage");
             $table->string("numberOfFetus");
             $table->string("healthStatus");
+            $table->string("imagePath");
             $table->timestamps();
         });
     }

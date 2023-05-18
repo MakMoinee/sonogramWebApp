@@ -206,6 +206,10 @@ class AdminSonogramController extends Controller
                 [
                     'name' => 'image_url',
                     'contents' => $imagePath
+                ],
+                [
+                    'name' => 'storagePath',
+                    'contents' => $_SERVER['DOCUMENT_ROOT'] . '/storage/results'
                 ]
             ]
         ]);

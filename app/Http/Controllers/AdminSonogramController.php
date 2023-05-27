@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Results;
 use App\Models\Sonogram;
+use Exception;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
@@ -88,8 +89,8 @@ class AdminSonogramController extends Controller
                     ]);
                 if ($affectedRows > 0) {
                     session()->put("successUpdate", true);
-                    $queryResult = DB::table("sonograms")->where('sonogramID',$id)->get();
-                    $data = json_decode($queryResult,true);
+                    $queryResult = DB::table("sonograms")->where('sonogramID', $id)->get();
+                    $data = json_decode($queryResult, true);
 
                     $this->callApi($id, $data[0]['imagePath']);
 
@@ -144,6 +145,38 @@ class AdminSonogramController extends Controller
                     session()->put("successDecline", true);
                 } else {
                     session()->put("errorcDecline", true);
+                }
+            } else if (isset($request->btnDeleteSonogram)) {
+
+                $queryResult = DB::table('results')->where('sonogramID', $id)->get();
+                $data = json_decode($queryResult, true);
+                foreach ($data as $d) {
+                    try {
+                        $dPath = $d['imagePath'];
+                        if ($dPath) {
+                            $destinationPath = $_SERVER['DOCUMENT_ROOT'] . $dPath;
+                            File::delete($destinationPath);
+                        }
+                    } catch (Exception $e1) {
+                    }
+
+                    $isDelete = DB::table('results')->where('sonogramID', '=', $id)->delete();
+                }
+
+                try {
+                    $originalDirectoryPath = $request->origImagePath;
+                    if ($originalDirectoryPath) {
+                        $destinationPath = $_SERVER['DOCUMENT_ROOT'] . $originalDirectoryPath;
+                        File::delete($destinationPath);
+                    }
+                } catch (Exception $e1) {
+                }
+
+                $isDelete = DB::table('sonograms')->where('sonogramID', '=', $id)->delete();
+                if ($isDelete) {
+                    session()->put("successAdminDeleteSonogram", true);
+                } else {
+                    session()->put("errorAdminDeleteSonogram", true);
                 }
             }
 

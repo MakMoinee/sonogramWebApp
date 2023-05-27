@@ -381,7 +381,50 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <button class="btn btn-danger" data-bs-toggle="modal"
+                                                    data-bs-target="#deleteSonogramModalLabel{{ $item['sonogramID'] }}">Delete</button>
+                                                <div class="modal fade "
+                                                    id="deleteSonogramModalLabel{{ $item['sonogramID'] }}"
+                                                    tabindex="-1" role="dialog"
+                                                    aria-labelledby="deleteSonogramModalLabel{{ $item['sonogramID'] }}"
+                                                    aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="row">
+                                                                    <form
+                                                                        action="{{ route('adminsono.destroy', ['adminsono' => $item['sonogramID']]) }}"
+                                                                        method="POST" enctype="multipart/form-data"
+                                                                        autocomplete="off">
+                                                                        @method('delete')
+                                                                        @csrf
+                                                                        <center>
+                                                                            <div class="form-group">
+                                                                                <h4>Are You Sure You Want To Delete This
+                                                                                    Songram?</h4>
+                                                                                <input type="hidden"
+                                                                                    name="origImagePath"
+                                                                                    value="{{ $item['imagePath'] }}">
+                                                                            </div>
+                                                                        </center>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal">Close</button>
+                                                                <button type="submit" class="btn btn-primary"
+                                                                    name="btnDeleteSonogram" value="yes">Yes,
+                                                                    proceed</button>
+                                                            </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             @endif
+
+
 
                                         </td>
                                     </tr>
@@ -765,6 +808,36 @@
             }, 500);
         </script>
         {{ session()->forget('successUpdate') }}
+    @endif
+
+    @if (session()->pull('successAdminDeleteSonogram'))
+        <script>
+            setTimeout(() => {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Successfully Deleted Sonogram',
+                    showConfirmButton: false,
+                    timer: 800
+                });
+            }, 500);
+        </script>
+        {{ session()->forget('successAdminDeleteSonogram') }}
+    @endif
+
+    @if (session()->pull('errorAdminDeleteSonogram'))
+        <script>
+            setTimeout(() => {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'warning',
+                    title: 'Failed to delete sonograms',
+                    showConfirmButton: false,
+                    timer: 800
+                });
+            }, 500);
+        </script>
+        {{ session()->forget('errorAdminDeleteSonogram') }}
     @endif
 
     @if (session()->pull('successDecline'))

@@ -144,7 +144,7 @@
                         <a class="text-light" href="/adminsono"><i
                                 class="bi bi-arrow-right text-primary me-2"></i>Sonogram</a>
                         <a class="text-light" href="/adminaccount"><i
-                                class="bi bi-arrow-right text-primary me-2"></i>Account</a>
+                                class="bi bi-arrow-right text-primary me-2"></i>Accounts</a>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
@@ -161,7 +161,7 @@
                 <div class="col-lg-3 col-md-6">
                     <h3 class="text-white mb-4">Get In Touch</h3>
                     <p class="mb-2"><i class="bi bi-geo-alt text-primary me-2"></i>123 Street, New York, USA</p>
-                    <p class="mb-2"><i class="bi bi-envelope-open text-primary me-2"></i>info@example.com</p>
+                    <p class="mb-2"><i class="bi bi-envelope-open text-primary me-2"></i>pawscan@gmail.com</p>
                     <p class="mb-0"><i class="bi bi-telephone text-primary me-2"></i>+012 345 67890</p>
                 </div>
                 <div class="col-lg-3 col-md-6">

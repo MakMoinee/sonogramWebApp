@@ -88,7 +88,7 @@
             <div class="navbar-nav ms-auto py-0">
                 <a href="/admindashboard" class="nav-item nav-link">Home</a>
                 <a href="/adminsono" class="nav-item nav-link active">Sonogram</a>
-                <a href="/adminaccount" class="nav-item nav-link">Account</a>
+                <a href="/adminaccount" class="nav-item nav-link">Accounts</a>
                 {{-- <a href="/contact" class="nav-item nav-link">Contact</a> --}}
             </div>
             <a href="#" class="btn btn-primary py-2 px-4 ms-3" data-bs-target="#logoutModal"
@@ -471,7 +471,7 @@
                 <div class="col-lg-3 col-md-6">
                     <h3 class="text-white mb-4">Get In Touch</h3>
                     <p class="mb-2"><i class="bi bi-geo-alt text-primary me-2"></i>123 Street, New York, USA</p>
-                    <p class="mb-2"><i class="bi bi-envelope-open text-primary me-2"></i>info@example.com</p>
+                    <p class="mb-2"><i class="bi bi-envelope-open text-primary me-2"></i>pawscan@gmail.com</p>
                     <p class="mb-0"><i class="bi bi-telephone text-primary me-2"></i>+012 345 67890</p>
                 </div>
                 <div class="col-lg-3 col-md-6">

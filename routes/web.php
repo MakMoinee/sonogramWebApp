@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\AccountsController;
 use App\Http\Controllers\AdminDashboard;
 use App\Http\Controllers\AdminSonogramController;
 use App\Http\Controllers\ContactController;
@@ -38,4 +39,4 @@ Route::resource("/admindashboard", AdminDashboard::class);
 Route::resource("/adminsono", AdminSonogramController::class);
 Route::get("/show/results", [ResultsController::class, 'showResults']);
 Route::resource("/results", ResultsController::class);
-
+Route::resource("/adminaccount", AccountsController::class);

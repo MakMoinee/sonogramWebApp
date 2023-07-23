@@ -45,7 +45,7 @@ class AccountsController extends Controller
 
 
             return view("admin.account", [
-                'accounts' => (count($newUsers) > 0 && $search != "" ? $newUsers : $allUsers),
+                'accounts' => (count($newUsers) > 0 || $search != "" ? $newUsers : $allUsers),
                 'searchKey' => $search
             ]);
         } else {

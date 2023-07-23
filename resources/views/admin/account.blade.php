@@ -113,10 +113,13 @@
                         <form action="/adminaccount" method="get" autocomplete="off">
                             <div class="form-group">
                                 <input type="search" class="form-control" placeholder="Search First Name"
-                                    name="search">
+                                    name="search" style="width:80%;float:left" value="{{ $searchKey }}">
+                                <button class="btn btn-primary" style="width:20%;float:left">Search</button>
                             </div>
+                            <br>
                         </form>
                     </div>
+                    <br>
                     <div class="table-responsive mb-5">
                         <table class="table border mb-0" id="sortTable">
                             <thead class="table-light fw-semibold">
@@ -204,7 +207,44 @@
                                             {{ $item['created_at'] }}
                                         </td>
                                         <td>
-                                            <button class="btn btn-danger">Delete</button>
+                                            <button class="btn btn-danger" data-bs-toggle="modal"
+                                                data-bs-target="#deleteModal{{ $item['userID'] }}">Delete</button>
+                                            <div class="modal fade " id="deleteModal{{ $item['userID'] }}"
+                                                tabindex="-1" role="dialog"
+                                                aria-labelledby="deleteModalLabel{{ $item['userID'] }}"
+                                                aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="row">
+                                                                <form
+                                                                    action="{{ route('adminaccount.destroy', ['adminaccount' => $item['userID']]) }}"
+                                                                    method="POST" enctype="multipart/form-data"
+                                                                    autocomplete="off">
+                                                                    @method('delete')
+                                                                    @csrf
+                                                                    <center>
+                                                                        <div class="form-group">
+                                                                            <h4>Are You Sure You Want To Delete This
+                                                                                Account Record ?</h4>
+                                                                        </div>
+                                                                    </center>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-primary"
+                                                                name="btnDeleteAccount" value="yes">Yes,
+                                                                proceed</button>
+                                                        </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -589,34 +629,34 @@
         {{ session()->forget('successUpdate') }}
     @endif
 
-    @if (session()->pull('successAdminDeleteSonogram'))
+    @if (session()->pull('successDeleteAcc'))
         <script>
             setTimeout(() => {
                 Swal.fire({
                     position: 'center',
                     icon: 'success',
-                    title: 'Successfully Deleted Sonogram',
+                    title: 'Successfully Deleted Account',
                     showConfirmButton: false,
                     timer: 800
                 });
             }, 500);
         </script>
-        {{ session()->forget('successAdminDeleteSonogram') }}
+        {{ session()->forget('successDeleteAcc') }}
     @endif
 
-    @if (session()->pull('errorAdminDeleteSonogram'))
+    @if (session()->pull('errorDeleteAcc'))
         <script>
             setTimeout(() => {
                 Swal.fire({
                     position: 'center',
                     icon: 'warning',
-                    title: 'Failed to delete sonograms',
+                    title: 'Failed to delete account',
                     showConfirmButton: false,
                     timer: 800
                 });
             }, 500);
         </script>
-        {{ session()->forget('errorAdminDeleteSonogram') }}
+        {{ session()->forget('errorDeleteAcc') }}
     @endif
 
     @if (session()->pull('successDecline'))

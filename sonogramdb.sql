@@ -11,7 +11,7 @@
  Target Server Version : 80030 (8.0.30)
  File Encoding         : 65001
 
- Date: 19/05/2023 05:06:17
+ Date: 10/09/2023 16:45:08
 */
 
 SET NAMES utf8mb4;
@@ -31,7 +31,7 @@ CREATE TABLE `failed_jobs`  (
   `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `failed_jobs_uuid_unique`(`uuid` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of failed_jobs
@@ -92,7 +92,7 @@ CREATE TABLE `personal_access_tokens`  (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `personal_access_tokens_token_unique`(`token` ASC) USING BTREE,
   INDEX `personal_access_tokens_tokenable_type_tokenable_id_index`(`tokenable_type` ASC, `tokenable_id` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of personal_access_tokens
@@ -113,11 +113,13 @@ CREATE TABLE `results`  (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`resultID`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of results
 -- ----------------------------
+INSERT INTO `results` VALUES (7, 6, '3-4 years old', 'Early pregnancy (1-4 weeks)', '3', 'Good Health', '/storage/results/1690959117.jpg', NULL, NULL);
+INSERT INTO `results` VALUES (8, 7, '3-4 years old', 'Early pregnancy (1-4 weeks)', '1', 'Good Health', '/storage/results/1690959404.jpg', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for sonograms
@@ -133,11 +135,13 @@ CREATE TABLE `sonograms`  (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`sonogramID`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sonograms
 -- ----------------------------
+INSERT INTO `sonograms` VALUES (6, 7, 'sample', '/storage/sonograms/1690959117.jpg', 'Successful', 'See Results', '2023-08-02 06:51:57', '2023-08-02 06:51:57');
+INSERT INTO `sonograms` VALUES (7, 7, 'James', '/storage/sonograms/1690959404.png', 'Successful', 'See Results', '2023-08-02 06:56:44', '2023-08-02 06:56:44');
 
 -- ----------------------------
 -- Table structure for susers
@@ -157,11 +161,13 @@ CREATE TABLE `susers`  (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`userID`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of susers
 -- ----------------------------
+INSERT INTO `susers` VALUES (1, 'Administrator', 'X', 'Administrator', 'default', '1998-01-01', '', 'admin@default.com', '$2y$10$7BtBMamIXBxPCNYbokd4euxZaLO3OvtYn5m0cXvVm9GRckQ8hUWVS', 1, '2023-05-19 04:21:36', '2023-05-19 04:21:36');
+INSERT INTO `susers` VALUES (7, 'Johnss', 'X', 'Doe', 'sample', '1998-11-13', '09269440075', 'sample@gmail.com', '$2y$10$IACkn6yX4giTizExg/meZueDLSpCG1wGrY5l2tdKUK.WZBlqwOsVS', 2, '2023-08-02 06:50:32', '2023-08-02 06:50:32');
 
 -- ----------------------------
 -- Table structure for users
@@ -178,7 +184,7 @@ CREATE TABLE `users`  (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `users_email_unique`(`email` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of users

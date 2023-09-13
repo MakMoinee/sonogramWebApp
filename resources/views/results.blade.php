@@ -107,6 +107,8 @@
                         <h5 class="position-relative d-inline-block text-primary text-uppercase">Sonogram Analysis</h5>
                         <h1 class="display-5 mb-0">Sonogram Results</h1>
                     </div>
+                    <h3 class="display-12 mb-0">Pet Owner: </h3>
+                    <h4 class="text-body fst mb-4">{{ $results['fullName'] }}</h4>
                     <h3 class="display-12 mb-0">Pet Name: </h3>
                     <h4 class="text-body fst mb-4">{{ $results['petName'] }}</h4>
                     <h3 class="display-12 mb-0">ToDos: </h3>

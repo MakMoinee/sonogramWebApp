@@ -156,13 +156,12 @@
                                                 d="M10,16.331h6.587a.5.5,0,0,0,0-1H10a.5.5,0,0,0,0,1Z" />
                                         </svg>
                                     </th>
-                                    <th>SID</th>
-                                    <th class="text-center">Client Name</th>
-                                    <th>Pet Name</th>
-                                    <th class="text-center">Date Submitted</th>
-                                    <th>Result Status</th>
-                                    <th class="text-center">Remarks</th>
-                                    <th>Action</th>
+                                    <th>Client Name</th>
+                                    <th class="text-center">Pet Name</th>
+                                    <th>Date Submitted</th>
+                                    <th class="text-center">Result Status</th>
+                                    <th>Remarks</th>
+                                    <th class="text-center">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -171,22 +170,19 @@
                                         <td class="text-center">
 
                                         </td>
-                                        <td>
-                                            {{ $item['sonogramID'] }}
-                                        </td>
-                                        <td class="text-center">
+                                        <td >
                                             {{ $item['fullName'] }}
                                         </td>
-                                        <td>
+                                        <td class="text-center">
                                             {{ $item['petName'] }}
                                         </td>
-                                        <td class="text-center">
+                                        <td>
                                             {{ date('Y-m-d', strtotime($item['created_at'])) }}
                                         </td>
-                                        <td>
+                                        <td class="text-center">
                                             {{ $item['status'] }}
                                         </td>
-                                        <td class="text-center">
+                                        <td>
                                             @if (isset($item['remarks']) && $item['remarks'] != '')
                                                 @if ($item['remarks'] == 'See Results')
                                                     <a target="_blank" href="/results?id={{ $item['sonogramID'] }}"
@@ -198,7 +194,7 @@
                                                 None
                                             @endif
                                         </td>
-                                        <td>
+                                        <td class="text-center">
                                             @if ($item['status'] == 'In Progress')
                                                 <button class="btn btn-warning" data-bs-toggle="modal"
                                                     data-bs-target="#viewModal{{ $item['sonogramID'] }}">Review</button>

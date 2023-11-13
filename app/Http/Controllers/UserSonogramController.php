@@ -52,13 +52,13 @@ class UserSonogramController extends Controller
             if ($files) {
                 $mimeType = $files->getMimeType();
                 if ($mimeType == "image/png" || $mimeType == "image/jpg" || $mimeType == "image/JPG" || $mimeType == "image/JPEG" || $mimeType == "image/jpeg" || $mimeType == "image/PNG") {
-                    $destinationPath = $_SERVER['DOCUMENT_ROOT'] . '/storage/sonograms';
+                    $destinationPath = $_SERVER['DOCUMENT_ROOT'] . '/data/sonograms';
                     $fileName = strtotime(now()) . "." . $files->getClientOriginalExtension();
                     $isFile = $files->move($destinationPath,  $fileName);
                     chmod($destinationPath, 0755);
 
                     if ($fileName != "") {
-                        $fileName = "/storage/sonograms/" . $fileName;
+                        $fileName = "/data/sonograms/" . $fileName;
                         $sonogram = new Sonogram();
                         $sonogram->petName = $petName;
                         $sonogram->userID = $userID;

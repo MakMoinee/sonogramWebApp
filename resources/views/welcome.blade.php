@@ -111,9 +111,10 @@
                             <h5 class="text-white text-uppercase mb-3 animated slideInDown">Scan Your Dog's Sonogram
                             </h5>
                             <h1 class="display-1 text-white mb-md-4 animated zoomIn">Take The Best Result</h1>
-                            <a href="appointment.html"
-                                class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Signup</a>
-                            <a href="" class="btn btn-secondary py-md-3 px-md-5 animated slideInRight">Login</a>
+                            <a href="appointment.html" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft"
+                                data-bs-target="#signUpModal" data-bs-toggle="modal">Signup</a>
+                            <a href="" class="btn btn-secondary py-md-3 px-md-5 animated slideInRight"
+                                data-bs-target="#loginModal" data-bs-toggle="modal">Login</a>
                         </div>
                     </div>
                 </div>
@@ -125,10 +126,10 @@
                             </h5>
                             <h1 class="display-1 text-white mb-md-4 animated zoomIn">Keep A Copy Of Your Dog's Sonogram
                                 and Have A Historical Data</h1>
-                            <a href="#"
-                                class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Signup</a>
-                            <a href="#"
-                                class="btn btn-secondary py-md-3 px-md-5 animated slideInRight">Login</a>
+                            <a class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft"
+                                data-bs-target="#signUpModal" data-bs-toggle="modal">Signup</a>
+                            <a class="btn btn-secondary py-md-3 px-md-5 animated slideInRight"
+                                data-bs-target="#loginModal" data-bs-toggle="modal">Login</a>
                         </div>
                     </div>
                 </div>
@@ -158,7 +159,8 @@
                         <h1 class="display-5 mb-0">PawScan - Your Trusted Sonogram Analysis Partner</h1>
                     </div>
                     <h4 class="text-body fst-italic mb-4">At PawScan, we are passionate about providing reliable and
-                        accurate sonogram scanning services for Shih Tzus. As a leading web application, we specialize in
+                        accurate sonogram scanning services for Shih Tzus. As a leading web application, we specialize
+                        in
                         analyzing sonogram images uploaded by users to provide valuable insights into the health and
                         condition of their furry companions' Shih Tzu.</h4>
                     <div class="row g-3">
@@ -242,10 +244,7 @@
                     <p class="mb-md-0">&copy; <a class="text-white border-bottom" href="/">PawScan</a>.
                         All Rights Reserved.</p>
                 </div>
-                <div class="col-md-6 text-center text-md-end">
-                    <p class="mb-0">Designed by <a class="text-white border-bottom"
-                            href="https://htmlcodex.com">HTML Codex</a></p>
-                </div>
+
             </div>
         </div>
     </div>

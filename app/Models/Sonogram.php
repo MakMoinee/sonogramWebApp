@@ -18,5 +18,6 @@ class Sonogram extends Model
         'petName',
         "imagePath",
         "status",
+        "approver",
     ];
 }

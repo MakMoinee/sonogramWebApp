@@ -1,7 +1,7 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : LOCAL
+ Source Server         : Local
  Source Server Type    : MySQL
  Source Server Version : 80030 (8.0.30)
  Source Host           : localhost:3306
@@ -11,7 +11,7 @@
  Target Server Version : 80030 (8.0.30)
  File Encoding         : 65001
 
- Date: 13/09/2023 16:59:13
+ Date: 13/11/2023 06:53:26
 */
 
 SET NAMES utf8mb4;
@@ -113,13 +113,12 @@ CREATE TABLE `results`  (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`resultID`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of results
 -- ----------------------------
-INSERT INTO `results` VALUES (7, 6, '3-4 years old', 'Early pregnancy (1-4 weeks)', '3', 'Good Health', '/storage/results/1690959117.jpg', NULL, NULL);
-INSERT INTO `results` VALUES (8, 7, '3-4 years old', 'Early pregnancy (1-4 weeks)', '1', 'Good Health', '/storage/results/1690959404.jpg', NULL, NULL);
+INSERT INTO `results` VALUES (2, 2, '5-6 years old', 'Mid-pregnancy (4-6 weeks)', '6', 'Good Health', '/storage/results/1699819821.jpg', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for sonograms
@@ -132,16 +131,16 @@ CREATE TABLE `sonograms`  (
   `imagePath` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `remarks` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+  `approver` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`sonogramID`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sonograms
 -- ----------------------------
-INSERT INTO `sonograms` VALUES (6, 7, 'sample', '/storage/sonograms/1690959117.jpg', 'Successful', 'See Results', '2023-08-02 06:51:57', '2023-08-02 06:51:57');
-INSERT INTO `sonograms` VALUES (7, 7, 'James', '/storage/sonograms/1690959404.png', 'Successful', 'See Results', '2023-08-02 06:56:44', '2023-08-02 06:56:44');
+INSERT INTO `sonograms` VALUES (2, 2, 'Sarah', '/storage/sonograms/1699819821.jpg', 'Successful', 'See Results', 'Dr. isabel', '2023-11-12 20:10:21', '2023-11-12 20:10:21');
 
 -- ----------------------------
 -- Table structure for susers
@@ -161,13 +160,13 @@ CREATE TABLE `susers`  (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`userID`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of susers
 -- ----------------------------
-INSERT INTO `susers` VALUES (1, 'Administrator', 'X', 'Administrator', 'default', '1998-01-01', '', 'admin@default.com', '$2y$10$7BtBMamIXBxPCNYbokd4euxZaLO3OvtYn5m0cXvVm9GRckQ8hUWVS', 1, '2023-05-19 04:21:36', '2023-05-19 04:21:36');
-INSERT INTO `susers` VALUES (7, 'Johnss', 'X', 'Doe', 'sample', '1998-11-13', '09269440075', 'sample@gmail.com', '$2y$10$IACkn6yX4giTizExg/meZueDLSpCG1wGrY5l2tdKUK.WZBlqwOsVS', 2, '2023-08-02 06:50:32', '2023-08-02 06:50:32');
+INSERT INTO `susers` VALUES (1, 'Administrator', 'X', 'Administrator', 'default', '1998-01-01', '', 'admin@default.com', '$2y$10$3m4HPQ.eYtpZSVoAIYZsn.bBur7BMKRViwT.gm/gDzndJ3zz/zAWe', 1, '2023-11-12 20:06:14', '2023-11-12 20:06:14');
+INSERT INTO `susers` VALUES (2, 'John', 'X', 'Doe', 'sample', '2003-12-22', '0926921232', 'sample@gmail.com', '$2y$10$lmbOUy4wzpr0Xo6uq7BHHuEso4oRe87kCjIUqqXalVguQ8E8RzvmO', 2, '2023-11-12 20:07:16', '2023-11-12 20:07:16');
 
 -- ----------------------------
 -- Table structure for users
@@ -194,7 +193,7 @@ CREATE TABLE `users`  (
 -- View structure for vwresults
 -- ----------------------------
 DROP VIEW IF EXISTS `vwresults`;
-CREATE ALGORITHM = UNDEFINED SQL SECURITY DEFINER VIEW `vwresults` AS select `results`.`resultID` AS `resultID`,concat(`susers`.`firstName`,' ',`susers`.`middleName`,' ',`susers`.`lastName`) AS `fullName`,`sonograms`.`petName` AS `petName`,`results`.`sonogramID` AS `sonogramID`,`results`.`age` AS `age`,`results`.`pregnancyStage` AS `pregnancyStage`,`results`.`numberOfFetus` AS `numberOfFetus`,`results`.`healthStatus` AS `healthStatus`,`results`.`created_at` AS `created_at`,`results`.`updated_at` AS `updated_at`,`results`.`imagePath` AS `imagePath` from ((`results` join `sonograms` on((`results`.`sonogramID` = `sonograms`.`sonogramID`))) join `susers` on((`sonograms`.`userID` = `susers`.`userID`)));
+CREATE ALGORITHM = UNDEFINED SQL SECURITY DEFINER VIEW `vwresults` AS select `results`.`resultID` AS `resultID`,concat(`susers`.`firstName`,' ',`susers`.`middleName`,' ',`susers`.`lastName`) AS `fullName`,`sonograms`.`petName` AS `petName`,`results`.`sonogramID` AS `sonogramID`,`results`.`age` AS `age`,`results`.`pregnancyStage` AS `pregnancyStage`,`results`.`numberOfFetus` AS `numberOfFetus`,`results`.`healthStatus` AS `healthStatus`,`results`.`created_at` AS `created_at`,`results`.`updated_at` AS `updated_at`,`results`.`imagePath` AS `imagePath`,`sonograms`.`approver` AS `approver` from ((`results` join `sonograms` on((`results`.`sonogramID` = `sonograms`.`sonogramID`))) join `susers` on((`sonograms`.`userID` = `susers`.`userID`)));
 
 -- ----------------------------
 -- View structure for vwsonograms

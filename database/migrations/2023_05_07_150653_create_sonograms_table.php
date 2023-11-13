@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('imagePath');
             $table->string('status');
             $table->string('remarks')->nullable(true);
+            $table->string('approver')->nullable(true);
             $table->timestamps();
         });
     }

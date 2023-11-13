@@ -27,7 +27,7 @@ class AdminSonogramController extends Controller
             if ($userType != 1) {
                 return redirect("/");
             }
-            $queryResult = DB::table("vwSonograms")->get();
+            $queryResult = DB::table("vwsonograms")->get();
             $sonograms = json_decode($queryResult, true);
             return view("admin.sonogram", ['sonograms' => $sonograms]);
         } else {
@@ -85,7 +85,8 @@ class AdminSonogramController extends Controller
                     ->where("sonogramID", $id)
                     ->update([
                         "status" => "Successful",
-                        "remarks" => "See Results"
+                        "remarks" => "See Results",
+                        "approver" => $request->vet
                     ]);
                 if ($affectedRows > 0) {
                     session()->put("successUpdate", true);
@@ -242,7 +243,7 @@ class AdminSonogramController extends Controller
                 ],
                 [
                     'name' => 'storagePath',
-                    'contents' => $_SERVER['DOCUMENT_ROOT'] . '/storage/results'
+                    'contents' => $_SERVER['DOCUMENT_ROOT'] . "/public" . '/storage/results'
                 ]
             ]
         ]);

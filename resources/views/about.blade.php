@@ -101,9 +101,9 @@
         <div class="row py-3">
             <div class="col-12 text-center">
                 <h1 class="display-3 text-white animated zoomIn">About Us</h1>
-                <a href="" class="h4 text-white">Home</a>
+                <a href="/" class="h4 text-white">Home</a>
                 <i class="far fa-circle text-white px-2"></i>
-                <a href="" class="h4 text-white">About</a>
+                <a href="/about" class="h4 text-white">About</a>
             </div>
         </div>
     </div>
@@ -201,10 +201,7 @@
                     <p class="mb-md-0">&copy; <a class="text-white border-bottom" href="/">PawScan</a>.
                         All Rights Reserved.</p>
                 </div>
-                <div class="col-md-6 text-center text-md-end">
-                    <p class="mb-0">Designed by <a class="text-white border-bottom"
-                            href="https://htmlcodex.com">HTML Codex</a></p>
-                </div>
+                
             </div>
         </div>
     </div>
